@@ -13,6 +13,7 @@
     <Grid>
         <wpf:OpenGLControl
             Name="gl"
+            Background="AliceBlue"
             DrawFPS="True"
             OpenGLDraw="gl_OpenGLDraw" />
     </Grid>
