@@ -13,7 +13,7 @@
     <Grid>
         <wpf:OpenGLControl
             Name="gl"
-            DrawFPS="False"
+            DrawFPS="True"
             OpenGLDraw="gl_OpenGLDraw" />
     </Grid>
 </Window>
