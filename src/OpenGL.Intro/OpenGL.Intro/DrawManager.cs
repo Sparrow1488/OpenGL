@@ -7,6 +7,8 @@ namespace OpenGL.Intro
     {
         private static SharpGL.OpenGL _openGL;
         private static float _angleX;
+        private static float _angleY = 0;
+
         private static float _rotateAngleX;
         private static bool _useRotate = false;
 
@@ -83,6 +85,69 @@ namespace OpenGL.Intro
 
             _openGL.End();
             _openGL.Flush();
+        }
+
+        public static void DrawCube(float size)
+        {
+            float half = size / 2;
+            _openGL.Clear(SharpGL.OpenGL.GL_COLOR_BUFFER_BIT | SharpGL.OpenGL.GL_DEPTH_BUFFER_BIT);
+            _openGL.LoadIdentity();
+            _openGL.Translate(0, -1.2f, -6f);
+            if (_useRotate)
+                _openGL.Rotate(_angleX, _angleY, _angleY);
+            _openGL.Begin(SharpGL.OpenGL.GL_QUADS);
+
+            // Top
+            _openGL.Color(1f, 0f, 0f);
+            _openGL.Vertex(half, 0, half);
+            _openGL.Vertex(-half, 0, half);
+            _openGL.Vertex(-half, size, half);
+            _openGL.Vertex(half, size, half);
+
+            // Right
+            _openGL.Color(0f, 1f, 0f);
+            _openGL.Vertex(half, size, half);
+            _openGL.Vertex(half, 0, half);
+            _openGL.Vertex(half, 0, -half);
+            _openGL.Vertex(half, size, -half);
+
+            // Behind
+            _openGL.Color(0f, 0f, 1f);
+            _openGL.Vertex(half, size, -half);
+            _openGL.Vertex(half, 0, -half);
+            _openGL.Vertex(-half, 0, -half);
+            _openGL.Vertex(-half, size, -half);
+
+            //Left
+            _openGL.Color(0f, 1f, 0f);
+            _openGL.Vertex(-half, size, -half);
+            _openGL.Vertex(-half, 0, -half);
+            _openGL.Vertex(-half, 0, half);
+            _openGL.Vertex(-half, size, half);
+
+            // Head
+            _openGL.Color(0f, 0f, 1f);  
+            _openGL.Vertex(-half, size, half);
+            _openGL.Vertex(-half, size, -half);
+            _openGL.Vertex(half, size, -half);
+            _openGL.Vertex(half, size, half);
+
+            // Bottom
+            _openGL.Color(0f, 1f, 0f);
+            _openGL.Vertex(half, 0, half);
+            _openGL.Vertex(-half, 0, half);
+            _openGL.Vertex(-half, 0, -half);
+            _openGL.Vertex(half, 0, -half);
+
+
+            _openGL.End();
+            _openGL.Flush();
+
+            if (_useRotate)
+            {
+                _angleX += _rotateAngleX;
+                _angleY += _rotateAngleX;
+            }
         }
     }
 }
