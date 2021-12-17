@@ -4,6 +4,8 @@ using System;
 namespace OpenGL.Intro
 {
     // в OpenGL используется Однородные координаты : https://neerc.ifmo.ru/wiki/index.php?title=Однородные_координаты
+
+    // LookAt - перемещает координату глаза (камеры)
     public static class DrawManager
     {
         private static SharpGL.OpenGL _openGL;
@@ -23,6 +25,8 @@ namespace OpenGL.Intro
             _rotateAngleX = angleX;
             _useRotate = true;
         }
+
+        
 
         public static void DrawTetrahedron(float size)
         {
@@ -86,6 +90,41 @@ namespace OpenGL.Intro
 
             _openGL.End();
             _openGL.Flush();
+        }
+
+        private static void DrawQuadre(
+            float[] v1, float[] v2, float[] v3, float[] v4)
+        {
+            _openGL.Vertex(v1[0], v1[1], v1[2]);
+            _openGL.Vertex(v2[0], v2[1], v2[2]);
+            _openGL.Vertex(v3[0], v3[1], v3[2]);
+            _openGL.Vertex(v4[0], v4[1], v4[2]);
+        }
+
+        public static void DrawEmptyCube(float size)
+        {
+            float half = size / 2;
+
+            _openGL.Clear(SharpGL.OpenGL.GL_COLOR_BUFFER_BIT | SharpGL.OpenGL.GL_DEPTH_BUFFER_BIT);
+            _openGL.LoadIdentity();
+            _openGL.Translate(0, -1.2f, -6f);
+
+            if (_useRotate)
+                _openGL.Rotate(_angleX, 0, 1, 0);
+
+            DrawQuadre(
+                new[] { half, 0, half },
+                new[] { -half, 0, half },
+                new[] { -half, size, half },
+                new[] { half, size, half }
+            );
+
+            DrawQuadre(
+                new[] { half, 0, half },
+                new[] { -half, 0, half },
+                new[] { -half, size, half },
+                new[] { half, size, half }
+            );
         }
 
         public static void DrawCube(float size)
