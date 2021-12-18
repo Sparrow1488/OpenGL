@@ -17,10 +17,8 @@ namespace OpenGL.Intro
             DrawManager.UseOpenGL(gl);
             DrawManager.UseRotate(5f);
             //DrawManager.DrawEmptyCube(2f);
-
+            DrawManager.DrawWordK();
             //DrawManager.DrawBufferTriangle(2f);
-
-            DrawManager.DrawCircle(1f);
         }
     }
 }

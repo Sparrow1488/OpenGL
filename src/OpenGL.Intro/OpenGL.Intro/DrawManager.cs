@@ -29,6 +29,34 @@ namespace OpenGL.Intro
             _useRotate = true;
         }
 
+        public static void DrawWordK()
+        {
+            float rad = 1f;
+            _gl.ClearColor(0.7f, 1f, 0.7f, 0f);
+            _gl.Clear(SharpGL.OpenGL.GL_COLOR_BUFFER_BIT | SharpGL.OpenGL.GL_DEPTH_BUFFER_BIT);
+            _gl.LoadIdentity();
+            _gl.Translate(0, 0, -6f);
+
+            _gl.Enable(SharpGL.OpenGL.GL_LINE_STIPPLE);
+            _gl.LineStipple(1, 0x00ff);
+            _gl.LineWidth(5);
+
+            _gl.Begin(SharpGL.OpenGL.GL_LINES);
+
+            _gl.Vertex(0, rad);
+            _gl.Vertex(0, -rad);
+
+            _gl.Vertex(0, 0);
+            _gl.Vertex(rad, rad);
+
+            _gl.Vertex(0, 0);
+            _gl.Vertex(rad, -rad);
+
+            _gl.End();
+            _gl.Flush();
+
+        }
+
         public static void DrawCircle(float radius)
         {
             _gl.Clear(SharpGL.OpenGL.GL_COLOR_BUFFER_BIT | SharpGL.OpenGL.GL_DEPTH_BUFFER_BIT);
@@ -63,10 +91,6 @@ namespace OpenGL.Intro
             var vertexShader = _gl.CreateShader(SharpGL.OpenGL.GL_VERTEX_SHADER);
             _gl.ShaderSource(vertexShader, vertexShaders);
             _gl.CompileShader(vertexShader);
-            //var logInfo = new StringBuilder();
-            //_openGL.GetShaderInfoLog(vertexShader, 512, (IntPtr)256, logInfo); // мэйби ошибка
-            //if (logInfo.Length > 0)
-            //    MessageBox.Show(logInfo.ToString());
 
             // Фрагментный шейдер
             string fragmentShaderSource = "#version 330 core\n" +
@@ -107,6 +131,9 @@ namespace OpenGL.Intro
 
             _gl.UseProgram(shaderProgram);
             _gl.BindVertexArray(1);
+
+            _gl.End();
+            _gl.Flush();
         }
 
         public static void DrawTetrahedron(float size)
@@ -210,8 +237,8 @@ namespace OpenGL.Intro
                            half, size, -half }
             );
 
-            _gl.End();
-            _gl.Flush();
+            //_gl.End();
+            //_gl.Flush();
 
             if (_useRotate)
             {
