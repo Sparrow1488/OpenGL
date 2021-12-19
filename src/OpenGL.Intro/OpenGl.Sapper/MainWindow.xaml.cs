@@ -9,18 +9,18 @@ namespace OpenGl.Sapper
         {
             InitializeComponent();
 
-            _game = new SapperGame(Height, Width);
+            _game = new SapperGame();
         }
 
         private void GlControl_OpenGLInitialized(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
         {
-            _game.Initialize(GlControl.OpenGL);
-            _game.CreateGame();
+            var gl = GlControl.OpenGL;
+            _game.CreateGame(gl, 1f, 10);
         }
 
         private void OpenGLControl_OpenGLDraw(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
         {
-            _game.DrawCell();
+            _game.DrawGameField();
         }
 
         
