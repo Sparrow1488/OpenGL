@@ -1,0 +1,20 @@
+﻿<Window
+    x:Class="OpenGl.Sapper.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OpenGl.Sapper"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpf="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
+    Title="MainWindow"
+    Width="500"
+    Height="500"
+    mc:Ignorable="d">
+    <Grid>
+        <wpf:OpenGLControl
+            Name="GlControl"
+            DrawFPS="True"
+            OpenGLDraw="OpenGLControl_OpenGLDraw"
+            OpenGLInitialized="GlControl_OpenGLInitialized" />
+    </Grid>
+</Window>

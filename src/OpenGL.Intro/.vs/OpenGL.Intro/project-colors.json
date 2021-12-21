@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "d6006382-e729-4922-a040-0e33d55218ee": {
+      "ProjectGuid": "d6006382-e729-4922-a040-0e33d55218ee",
+      "DisplayName": "OpenGL.Intro",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
