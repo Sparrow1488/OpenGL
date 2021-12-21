@@ -2,6 +2,7 @@
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Graphics.OpenGL;
+using System.Collections.Generic;
 
 namespace OpenGl.SapperTK.Windows
 {
@@ -31,11 +32,45 @@ namespace OpenGl.SapperTK.Windows
 
         protected override void OnLoad()
         {
-            var vertices = new float[]{
+            #region Generate net
+            //var vertecesList = new List<float>();
+            //for (int column = 0; column < 5; column++)
+            //    for (int row = 0; row < 5; row++)
+            //    {
+            //        var _cellSize = 0.1f;
+            //        float baseX = row * 0.1f;
+            //        float baseY = column * 0.1f;
+            //        vertecesList.AddRange(new float[] { baseX, baseY, 0f });
+            //        vertecesList.AddRange(new float[] { baseX, baseY + _cellSize, 0f });
+
+            //        vertecesList.AddRange(new float[] { baseX, baseY + _cellSize, 0f });
+            //        vertecesList.AddRange(new float[] { baseX + _cellSize, baseY + _cellSize, 0f });
+
+            //        vertecesList.AddRange(new float[] { baseX + _cellSize, baseY + _cellSize, 0f });
+            //        vertecesList.AddRange(new float[] { baseX + _cellSize, baseY, 0f });
+
+            //        vertecesList.AddRange(new float[] { baseX + _cellSize, baseY, 0f });
+            //        vertecesList.AddRange(new float[] { baseX, baseY, 0f });
+            //    }
+            #endregion
+
+            var vertices = new float[]
+            {
                 -0.5f, -0.5f, 0f,
                 0f, 0.5f, 0f,
-                0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f
             };
+
+            #region DrawQuads
+            //new float[]
+            //{
+            //    -0.5f, -0.5f, 0f,
+            //    -0.5f, 0.5f, 0f,
+            //    0.5f, 0.5f, 0f,
+            //    0.5f, -0.5f, 0f
+            //};
+            #endregion
+
             _verticesBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, _verticesBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
@@ -103,12 +138,11 @@ namespace OpenGl.SapperTK.Windows
             GL.ClearColor(new Color4(0.3f, 0.5f, 0.4f, 1f));
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
+            GL.LineWidth(5f);
             GL.UseProgram(_shaderProgram);
             GL.BindVertexArray(_vertexArrayObject);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
-            GL.End();
-            GL.Flush();
             Context.SwapBuffers();
             base.OnRenderFrame(args);
         }
