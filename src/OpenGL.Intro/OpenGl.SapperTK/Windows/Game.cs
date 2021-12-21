@@ -7,8 +7,8 @@ namespace OpenGl.SapperTK.Windows
 {
     internal class Game : GameWindow
     {
-        private int _verticesBuffer;
-        private int _vertexArray;
+        private int _verticesBufferObject;
+        private int _vertexArrayObject;
 
         private int _vertexShader;
         private int _fragmentShader;
@@ -19,6 +19,8 @@ namespace OpenGl.SapperTK.Windows
             base(GameWindowSettings.Default, NativeWindowSettings.Default)
         {
             CenterWindow(new Vector2i(720, 500));
+            Context.SwapInterval = 5;
+            //VSync = VSyncMode.On; // считается устаревшим
         }
 
         protected override void OnResize(ResizeEventArgs e)
@@ -34,15 +36,15 @@ namespace OpenGl.SapperTK.Windows
                 0f, 0.5f, 0f,
                 0.5f, -0.5f, 0f,
             };
-            _verticesBuffer = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _verticesBuffer);
+            _verticesBufferObject = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _verticesBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
-            _vertexArray = GL.GenVertexArray();
-            GL.BindVertexArray(_vertexArray);
+            _vertexArrayObject = GL.GenVertexArray();
+            GL.BindVertexArray(_vertexArrayObject);
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _verticesBuffer);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _verticesBufferObject);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
 
@@ -88,7 +90,7 @@ namespace OpenGl.SapperTK.Windows
         {
             // выгружаем все ресурсы
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.DeleteBuffers(0, ref _verticesBuffer);
+            GL.DeleteBuffers(0, ref _verticesBufferObject);
 
             GL.UseProgram(_shaderProgram);
             GL.DeleteProgram(_shaderProgram);
@@ -102,10 +104,11 @@ namespace OpenGl.SapperTK.Windows
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             GL.UseProgram(_shaderProgram);
-            GL.BindVertexArray(_vertexArray);
-            GL.PointSize(5f);
+            GL.BindVertexArray(_vertexArrayObject);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
+            GL.End();
+            GL.Flush();
             Context.SwapBuffers();
             base.OnRenderFrame(args);
         }
