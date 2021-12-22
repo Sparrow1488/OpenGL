@@ -62,7 +62,7 @@ namespace OpenGl.SapperTK.Windows
             };
 
             #region DrawQuads
-            //new float[]
+            //var vertices = new float[]
             //{
             //    -0.5f, -0.5f, 0f,
             //    -0.5f, 0.5f, 0f,
@@ -141,7 +141,7 @@ namespace OpenGl.SapperTK.Windows
             GL.LineWidth(5f);
             GL.UseProgram(_shaderProgram);
             GL.BindVertexArray(_vertexArrayObject);
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 4);
 
             Context.SwapBuffers();
             base.OnRenderFrame(args);
