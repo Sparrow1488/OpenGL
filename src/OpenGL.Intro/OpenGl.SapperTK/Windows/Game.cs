@@ -9,12 +9,8 @@ namespace OpenGl.SapperTK.Windows
 {
     internal class Game : GameWindow
     {
+        private List<int> _vaos = new List<int>();
         private int _verticesBufferObject;
-        private int _vertexArrayObject;
-        private int _elementsBufferObject;
-
-        private int _vertexShader;
-        private int _fragmentShader;
 
         private int _shaderProgram;
 
@@ -34,79 +30,47 @@ namespace OpenGl.SapperTK.Windows
 
         protected override void OnLoad()
         {
-            UIElements.AddButton(new[] { 
+            var btn = UIElements.CreateButton(new[] { 
                 -0.99f, 0.99f, 0f,
                 -0.7f, 0.99f, 0f,
                 -0.7f, 0.9f, 0f,
                 -0.99f, 0.9f, 0f,
             });
+            _vaos.Add(btn);
 
             var vertices = new float[]
             {
-                0f, 0f, 0f,
-                -0.5f, -0.5f, 0f,
-                -0.5f, 0.5f, 0f,
-                0.5f, 0.5f, 0f,
-                0.5f, -0.5f, 0f
-            };
+                -0.3f, 0f, 0f,
+                -0.1f, 0f, 0f,
+                -0.2f, 0.5f, 0f,
 
+                0.3f, 0f, 0f,
+                0.1f, 0f, 0f,
+                0.2f, 0.5f, 0f
+            };
             var indices = new uint[]
             {
                 0, 1, 2,
-                0, 3, 4
+                3, 4, 5
             };
 
-            _vertexArrayObject = GL.GenVertexArray();
-            GL.BindVertexArray(_vertexArrayObject);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexArrayObject);
+            _vaos.Add(UIElements.CreateElement(vertices, indices));
 
-            _verticesBufferObject = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _verticesBufferObject);
-            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _verticesBufferObject);
-
-            _elementsBufferObject = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _elementsBufferObject);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices, BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _elementsBufferObject);
-
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(0);
-
-            GL.BindVertexArray(0);
+            _vaos.Add(UIElements.CreateCenterQuadre(0.2f));
 
             string vertexShaderSource = "#version 330 core\n" +
-                                                            "layout (location = 0) in vec3 aPos;\n" + 
+                                                            "layout (location = 0) in vec3 aPos;\n" +
                                                             "void main()\n" +
                                                             "{\n" +
                                                             "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n" +
                                                             "}\0";
-            _vertexShader = GL.CreateShader(ShaderType.VertexShader);
-            GL.ShaderSource(_vertexShader, vertexShaderSource);
-            GL.CompileShader(_vertexShader);
-
             string fragmentShaderSource = "#version 330 core\n" +
                                                                 "out vec4 FragColor;\n" +
                                                                 "void main()\n" +
                                                                 "{\n" +
                                                                 "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n" +
                                                                 "}";
-            _fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-            GL.ShaderSource(_fragmentShader, fragmentShaderSource);
-            GL.CompileShader(_fragmentShader);
-
-            _shaderProgram = GL.CreateProgram();
-            GL.AttachShader(_shaderProgram, _vertexShader);
-            GL.AttachShader(_shaderProgram, _fragmentShader);
-            GL.LinkProgram(_shaderProgram);
-
-            GL.DetachShader(_shaderProgram, _vertexShader);
-            GL.DetachShader(_shaderProgram, _fragmentShader);
-
-            GL.DeleteShader(_vertexShader);
-            GL.DeleteShader(_fragmentShader);
-
-            GL.UseProgram(_shaderProgram);
+            _shaderProgram = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 
             base.OnLoad();
         }
@@ -116,15 +80,14 @@ namespace OpenGl.SapperTK.Windows
             GL.ClearColor(new Color4(0.3f, 0.5f, 0.4f, 1f));
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
-            UIElements.DrawButton();
-
             GL.LineWidth(2f);
             GL.UseProgram(_shaderProgram);
-            GL.BindVertexArray(_vertexArrayObject);
+            foreach (var vao in _vaos)
+            {
+                GL.BindVertexArray(vao);
+                GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+            }
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); // включение wireframe mode (каркасный режим)
-            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); // выклечение wireframe mode
-            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
-            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
             Context.SwapBuffers();
             base.OnRenderFrame(args);
