@@ -3,6 +3,7 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
+using OpenGl.SapperTK.DrawTools;
 
 namespace OpenGl.SapperTK.Windows
 {
@@ -33,49 +34,26 @@ namespace OpenGl.SapperTK.Windows
 
         protected override void OnLoad()
         {
-            #region Generate net
-            //var vertecesList = new List<float>();
-            //for (int column = 0; column < 5; column++)
-            //    for (int row = 0; row < 5; row++)
-            //    {
-            //        var _cellSize = 0.1f;
-            //        float baseX = row * 0.1f;
-            //        float baseY = column * 0.1f;
-            //        vertecesList.AddRange(new float[] { baseX, baseY, 0f });
-            //        vertecesList.AddRange(new float[] { baseX, baseY + _cellSize, 0f });
+            UIElements.AddButton(new[] { 
+                -0.99f, 0.99f, 0f,
+                -0.7f, 0.99f, 0f,
+                -0.7f, 0.9f, 0f,
+                -0.99f, 0.9f, 0f,
+            });
 
-            //        vertecesList.AddRange(new float[] { baseX, baseY + _cellSize, 0f });
-            //        vertecesList.AddRange(new float[] { baseX + _cellSize, baseY + _cellSize, 0f });
-
-            //        vertecesList.AddRange(new float[] { baseX + _cellSize, baseY + _cellSize, 0f });
-            //        vertecesList.AddRange(new float[] { baseX + _cellSize, baseY, 0f });
-
-            //        vertecesList.AddRange(new float[] { baseX + _cellSize, baseY, 0f });
-            //        vertecesList.AddRange(new float[] { baseX, baseY, 0f });
-            //    }
-            #endregion
-
-            //var vertices = new float[]
-            //{
-            //    -0.5f, -0.5f, 0f,
-            //    0f, 0.5f, 0f,
-            //    0.5f, -0.5f, 0f
-            //};
-
-            #region DrawQuads
             var vertices = new float[]
             {
-                0.5f,  0.5f, 0.0f,  // top right
-                 0.5f, -0.5f, 0.0f,  // bottom right
-                -0.5f, -0.5f, 0.0f,  // bottom left
-                -0.5f,  0.5f, 0.0f   // top left 
+                0f, 0f, 0f,
+                -0.5f, -0.5f, 0f,
+                -0.5f, 0.5f, 0f,
+                0.5f, 0.5f, 0f,
+                0.5f, -0.5f, 0f
             };
-            #endregion
 
             var indices = new uint[]
             {
-                0, 1, 3,
-                1, 2, 3
+                0, 1, 2,
+                0, 3, 4
             };
 
             _vertexArrayObject = GL.GenVertexArray();
@@ -138,10 +116,12 @@ namespace OpenGl.SapperTK.Windows
             GL.ClearColor(new Color4(0.3f, 0.5f, 0.4f, 1f));
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
+            UIElements.DrawButton();
+
             GL.LineWidth(2f);
             GL.UseProgram(_shaderProgram);
             GL.BindVertexArray(_vertexArrayObject);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); // включение wireframe mode (каркасный режим)
+            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); // включение wireframe mode (каркасный режим)
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); // выклечение wireframe mode
             GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
             //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
