@@ -10,6 +10,7 @@ namespace OpenGl.SapperTK.Windows
     {
         private int _verticesBufferObject;
         private int _vertexArrayObject;
+        private int _elementsBufferObject;
 
         private int _vertexShader;
         private int _fragmentShader;
@@ -54,32 +55,43 @@ namespace OpenGl.SapperTK.Windows
             //    }
             #endregion
 
-            var vertices = new float[]
-            {
-                -0.5f, -0.5f, 0f,
-                0f, 0.5f, 0f,
-                0.5f, -0.5f, 0f
-            };
-
-            #region DrawQuads
             //var vertices = new float[]
             //{
             //    -0.5f, -0.5f, 0f,
-            //    -0.5f, 0.5f, 0f,
-            //    0.5f, 0.5f, 0f,
+            //    0f, 0.5f, 0f,
             //    0.5f, -0.5f, 0f
             //};
+
+            #region DrawQuads
+            var vertices = new float[]
+            {
+                0.5f,  0.5f, 0.0f,  // top right
+                 0.5f, -0.5f, 0.0f,  // bottom right
+                -0.5f, -0.5f, 0.0f,  // bottom left
+                -0.5f,  0.5f, 0.0f   // top left 
+            };
             #endregion
+
+            var indices = new uint[]
+            {
+                0, 1, 3,
+                1, 2, 3
+            };
+
+            _vertexArrayObject = GL.GenVertexArray();
+            GL.BindVertexArray(_vertexArrayObject);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexArrayObject);
 
             _verticesBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, _verticesBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-            _vertexArrayObject = GL.GenVertexArray();
-            GL.BindVertexArray(_vertexArrayObject);
-
             GL.BindBuffer(BufferTarget.ArrayBuffer, _verticesBufferObject);
+
+            _elementsBufferObject = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _elementsBufferObject);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _elementsBufferObject);
+
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
 
@@ -121,6 +133,21 @@ namespace OpenGl.SapperTK.Windows
             base.OnLoad();
         }
 
+        protected override void OnRenderFrame(FrameEventArgs args)
+        {
+            GL.ClearColor(new Color4(0.3f, 0.5f, 0.4f, 1f));
+            GL.Clear(ClearBufferMask.ColorBufferBit);
+
+            GL.LineWidth(2f);
+            GL.UseProgram(_shaderProgram);
+            GL.BindVertexArray(_vertexArrayObject);
+            GL.DrawElements(PrimitiveType.LineLoop, 6, DrawElementsType.UnsignedInt, 0);
+            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+
+            Context.SwapBuffers();
+            base.OnRenderFrame(args);
+        }
+
         protected override void OnUnload()
         {
             // выгружаем все ресурсы
@@ -133,18 +160,6 @@ namespace OpenGl.SapperTK.Windows
             base.OnUnload();
         }
 
-        protected override void OnRenderFrame(FrameEventArgs args)
-        {
-            GL.ClearColor(new Color4(0.3f, 0.5f, 0.4f, 1f));
-            GL.Clear(ClearBufferMask.ColorBufferBit);
-
-            GL.LineWidth(5f);
-            GL.UseProgram(_shaderProgram);
-            GL.BindVertexArray(_vertexArrayObject);
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 4);
-
-            Context.SwapBuffers();
-            base.OnRenderFrame(args);
-        }
+        
     }
 }
