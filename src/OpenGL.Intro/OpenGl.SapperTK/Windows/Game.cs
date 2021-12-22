@@ -98,21 +98,21 @@ namespace OpenGl.SapperTK.Windows
             GL.BindVertexArray(0);
 
             string vertexShaderSource = "#version 330 core\n" +
-            "layout (location = 0) in vec3 aPos;\n" + 
-            "void main()\n" +
-            "{\n" +
-            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n" +
-            "}\0";
+                                                            "layout (location = 0) in vec3 aPos;\n" + 
+                                                            "void main()\n" +
+                                                            "{\n" +
+                                                            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n" +
+                                                            "}\0";
             _vertexShader = GL.CreateShader(ShaderType.VertexShader);
             GL.ShaderSource(_vertexShader, vertexShaderSource);
             GL.CompileShader(_vertexShader);
 
             string fragmentShaderSource = "#version 330 core\n" +
-            "out vec4 FragColor;\n" +
-            "void main()\n" +
-            "{\n" +
-            "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n" +
-            "}";
+                                                                "out vec4 FragColor;\n" +
+                                                                "void main()\n" +
+                                                                "{\n" +
+                                                                "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n" +
+                                                                "}";
             _fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
             GL.ShaderSource(_fragmentShader, fragmentShaderSource);
             GL.CompileShader(_fragmentShader);
@@ -141,7 +141,9 @@ namespace OpenGl.SapperTK.Windows
             GL.LineWidth(2f);
             GL.UseProgram(_shaderProgram);
             GL.BindVertexArray(_vertexArrayObject);
-            GL.DrawElements(PrimitiveType.LineLoop, 6, DrawElementsType.UnsignedInt, 0);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); // включение wireframe mode (каркасный режим)
+            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); // выклечение wireframe mode
+            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
             //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
             Context.SwapBuffers();
