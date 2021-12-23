@@ -13,6 +13,13 @@ namespace OpenGl.SapperTK.DrawTools
             });
         }
 
+        public static void DrawElement(int elem, int shaderProg)
+        {
+            GL.UseProgram(shaderProg);
+            GL.BindVertexArray(elem);
+            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+        }
+
         public static int CreateCenterQuadre(float size)
         {
             float half = size / 2;
@@ -51,7 +58,6 @@ namespace OpenGl.SapperTK.DrawTools
 
             GL.DetachShader(shaderProgram, vertexShader);
             GL.DetachShader(shaderProgram, fragmentShader);
-
             GL.DeleteShader(vertexShader);
             GL.DeleteShader(fragmentShader);
 

@@ -10,4 +10,19 @@
     <PackageReference Include="OpenTK" Version="4.6.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Shaders\OragneVertexShaders.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Shaders\OrangeFragmentShader.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Shaders\YellowFragmentShader.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Shaders\YellowVertexShaders.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

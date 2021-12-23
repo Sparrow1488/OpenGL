@@ -26,3 +26,7 @@ C:\Users\Dom\Desktop\Репозитории\OpenGL\src\OpenGL.Intro\OpenGl.Sappe
 C:\Users\Dom\Desktop\Репозитории\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\obj\x64\Debug\netcoreapp3.1\OpenGl.SapperTK.dll
 C:\Users\Dom\Desktop\Репозитории\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\obj\x64\Debug\netcoreapp3.1\OpenGl.SapperTK.pdb
 C:\Users\Dom\Desktop\Репозитории\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\obj\x64\Debug\netcoreapp3.1\OpenGl.SapperTK.genruntimeconfig.cache
+C:\Users\Dom\Desktop\Репозитории\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\bin\x64\Debug\netcoreapp3.1\Shaders\OragneVertexShaders.txt
+C:\Users\Dom\Desktop\Репозитории\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\bin\x64\Debug\netcoreapp3.1\Shaders\OrangeFragmentShader.txt
+C:\Users\Dom\Desktop\Репозитории\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\bin\x64\Debug\netcoreapp3.1\Shaders\YellowFragmentShader.txt
+C:\Users\Dom\Desktop\Репозитории\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\bin\x64\Debug\netcoreapp3.1\Shaders\YellowVertexShaders.txt

@@ -4,6 +4,8 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using OpenGl.SapperTK.DrawTools;
+using System.IO;
+using System;
 
 namespace OpenGl.SapperTK.Windows
 {
@@ -13,6 +15,7 @@ namespace OpenGl.SapperTK.Windows
         private int _verticesBufferObject;
 
         private int _shaderProgram;
+        private int _shaderProgramSecond;
 
         public Game() : 
             base(GameWindowSettings.Default, NativeWindowSettings.Default)
@@ -30,6 +33,14 @@ namespace OpenGl.SapperTK.Windows
 
         protected override void OnLoad()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Hello Triangles!");
+            Console.ResetColor();
+
+            string vertexShaderSource;
+            string fragmentShaderSource;
+
+
             var btn = UIElements.CreateButton(new[] { 
                 -0.99f, 0.99f, 0f,
                 -0.7f, 0.99f, 0f,
@@ -58,19 +69,13 @@ namespace OpenGl.SapperTK.Windows
 
             _vaos.Add(UIElements.CreateCenterQuadre(0.2f));
 
-            string vertexShaderSource = "#version 330 core\n" +
-                                                            "layout (location = 0) in vec3 aPos;\n" +
-                                                            "void main()\n" +
-                                                            "{\n" +
-                                                            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n" +
-                                                            "}\0";
-            string fragmentShaderSource = "#version 330 core\n" +
-                                                                "out vec4 FragColor;\n" +
-                                                                "void main()\n" +
-                                                                "{\n" +
-                                                                "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n" +
-                                                                "}";
+            vertexShaderSource = File.ReadAllText("./Shaders/OragneVertexShaders.txt");
+            fragmentShaderSource = File.ReadAllText("./Shaders/OrangeFragmentShader.txt");
             _shaderProgram = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
+
+            vertexShaderSource = File.ReadAllText("./Shaders/YellowVertexShaders.txt");
+            fragmentShaderSource = File.ReadAllText("./Shaders/YellowFragmentShader.txt");
+            _shaderProgramSecond = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 
             base.OnLoad();
         }
@@ -82,11 +87,13 @@ namespace OpenGl.SapperTK.Windows
 
             GL.LineWidth(2f);
             GL.UseProgram(_shaderProgram);
-            foreach (var vao in _vaos)
+            for (int i = 0; i < _vaos.Count; i++)
             {
-                GL.BindVertexArray(vao);
-                GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+                if(i == 0 || i % 2 == 0)
+                    UIElements.DrawElement(_vaos[i], _shaderProgramSecond);
+                else UIElements.DrawElement(_vaos[i], _shaderProgram);
             }
+                
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); // включение wireframe mode (каркасный режим)
 
             Context.SwapBuffers();
