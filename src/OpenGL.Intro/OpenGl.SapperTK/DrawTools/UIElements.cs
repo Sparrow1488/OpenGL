@@ -1,4 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using System;
 
 namespace OpenGl.SapperTK.DrawTools
 {
@@ -36,6 +39,14 @@ namespace OpenGl.SapperTK.DrawTools
                 0, 2, 3
             };
             return CreateElement(vertices, indices);
+        }
+
+        public static void UseUniform(int shaderProgram, string uniformValue)
+        {
+            var time = GLFW.GetTime();
+            var greenValue = Math.Sin(time) / 2f + 0.5f;
+            var vertexColorLocation = GL.GetUniformLocation(shaderProgram, uniformValue);
+            GL.Uniform4(vertexColorLocation, new Color4(0.5f, (float)greenValue, 0f, 1.0f));
         }
 
         public static int CreateShaderProgram(string vertexShaders, string fragmentShaders)

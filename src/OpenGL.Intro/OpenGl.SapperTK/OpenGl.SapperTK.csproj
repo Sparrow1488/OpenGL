@@ -11,6 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Shaders\Custom\Dynamic\fragment1.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Shaders\Custom\Dynamic\vertex1.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Shaders\Custom\Static\fragment1.glsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

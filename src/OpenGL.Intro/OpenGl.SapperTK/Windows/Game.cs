@@ -21,7 +21,7 @@ namespace OpenGl.SapperTK.Windows
             base(GameWindowSettings.Default, NativeWindowSettings.Default)
         {
             CenterWindow(new Vector2i(720, 500));
-            Context.SwapInterval = 5;
+            Context.SwapInterval = 2; // еще нормис при 2-3
             //VSync = VSyncMode.On; // считается устаревшим
         }
 
@@ -77,8 +77,8 @@ namespace OpenGl.SapperTK.Windows
             fragmentShaderSource = File.ReadAllText("./Shaders/YellowFragmentShader.glsl");
             _shaderProgramSecond = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 
-            vertexShaderSource = File.ReadAllText("./Shaders/Custom/Static/vertex1.glsl");
-            fragmentShaderSource = File.ReadAllText("./Shaders/Custom/Static/fragment1.glsl");
+            vertexShaderSource = File.ReadAllText("./Shaders/Custom/Dynamic/vertex1.glsl");
+            fragmentShaderSource = File.ReadAllText("./Shaders/Custom/Dynamic/fragment1.glsl");
             _shaderProgram = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 
             base.OnLoad();
@@ -90,12 +90,14 @@ namespace OpenGl.SapperTK.Windows
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             GL.LineWidth(2f);
-            //GL.UseProgram(_shaderProgramSecond);
+
+
             for (int i = 0; i < _vaos.Count; i++)
             {
                 if(i == 0 || i % 2 == 0)
                     UIElements.DrawElement(_vaos[i], _shaderProgram);
                 else UIElements.DrawElement(_vaos[i], _shaderProgramSecond);
+                UIElements.UseUniform(_shaderProgram, "ourValue");
             }
                 
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); // включение wireframe mode (каркасный режим)
