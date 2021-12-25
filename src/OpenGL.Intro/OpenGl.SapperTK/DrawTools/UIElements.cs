@@ -46,18 +46,33 @@ namespace OpenGl.SapperTK.DrawTools
         /// <summary>
         /// Используя тип uniform в шейдерной программе, плавно анимируем затухание, появление цвета
         /// </summary>
-        public static void UniformAnimate(int shaderProgram, string uniformValue)
+        public static void UniformColorAnimate(Shader shader, string uniformValue)
         {
             var time = GLFW.GetTime();
             var greenValue = Math.Sin(time) / 2f + 0.5f;
             var redValue = Math.Cos(time) / 2f + 0.5f;
-            var vertexColorLocation = GL.GetUniformLocation(shaderProgram, uniformValue);
+            var vertexColorLocation = GL.GetUniformLocation(shader.UID, uniformValue);
             GL.Uniform4(vertexColorLocation, new Color4((float)redValue, (float)greenValue, 0f, 1.0f));
         }
 
-        public static void UniformTransform()
+        public static void UniformAnimateCircle(Shader shader, string uniformValue)
         {
+            var time = GLFW.GetTime();
+            var x = Math.Sin(time) / 2f + 0.2f;
+            var y = Math.Cos(time) / 2f + 0.2f;
+            var location = GL.GetUniformLocation(shader.UID, uniformValue);
+            GL.Uniform4(location, new Vector4((float)x, (float)y, 0f, 0f));
+        }
 
+        private static float _xLineAnimValue = 0f;
+        private static float _xLineAnimCoef= 0.05f;
+        public static void UniformAnimatePingPong(Shader shader, string uniformValue)
+        {
+            _xLineAnimValue += _xLineAnimCoef / 2f;
+            var location = GL.GetUniformLocation(shader.UID, uniformValue);
+            GL.Uniform4(location, new Vector4(_xLineAnimValue, 0.0f, 0.0f, 0.0f));
+            if (_xLineAnimValue >= 1 || _xLineAnimValue <= -1)
+                _xLineAnimCoef = -_xLineAnimCoef;
         }
 
         /// <returns>VAO</returns>

@@ -104,12 +104,16 @@ namespace OpenGl.SapperTK.Windows
 
             GL.LineWidth(2f);
 
-            //var rnd = new Random();
-            //for (int i = 0; i < _vaos.Count; i++)
-            //{
-            //    UIElements.DrawElement(_vaos[i], _shaders[rnd.Next(_shaders.Count - 1)].UID);
-            //    UIElements.DrawElement(_vaos[i], _shaders[rnd.Next(_shaders.Count - 1)].UID);
-            //}
+            for (int i = 0; i < _vaos.Count; i++)
+            {
+                if(i != 2)
+                    UIElements.DrawElement(_vaos[i], _shaders[0].UID);
+            }
+
+            _transformShader.Use();
+            //UIElements.UniformColorAnimate(_transformShader, "uniColor");
+            //UIElements.UniformAnimatePingPong(_transformShader, "coord");
+            //UIElements.DrawElement(_vaos[2], _transformShader.UID);
 
             var vertices = new[]
             {
@@ -117,12 +121,8 @@ namespace OpenGl.SapperTK.Windows
                 0f, 0.5f, 0f,      0f, 1.0f, 0f,
                 0.5f, -0.5f, 0f,   0f, 0f, 1,0f
             };
-            _transformShader.Use();
-            UIElements.UniformAnimate(_transformShader.UID, "uniColor");
-            UIElements.DrawElement(_vaos[1], _transformShader.UID);
-
-            //UIElements.CreateColorElement(vertices);
-            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            UIElements.CreateRainbowElement(vertices);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
             Context.SwapBuffers();
             base.OnRenderFrame(args);
