@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using OpenGl.SapperTK.DrawTools;
 using System.IO;
 using System;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace OpenGl.SapperTK.Windows
 {
@@ -23,6 +24,16 @@ namespace OpenGl.SapperTK.Windows
             CenterWindow(new Vector2i(720, 500));
             Context.SwapInterval = 2; // еще нормис при 2-3
             //VSync = VSyncMode.On; // считается устаревшим
+
+            KeyUp += Game_KeyUp;
+        }
+
+        private void Game_KeyUp(KeyboardKeyEventArgs obj)
+        {
+            if (obj.Key == Keys.W)
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+            if (obj.Key == Keys.R)
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
         }
 
         protected override void OnResize(ResizeEventArgs e)
@@ -34,7 +45,8 @@ namespace OpenGl.SapperTK.Windows
         protected override void OnLoad()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Hello Triangles!");
+            Console.WriteLine("[21.12.21] Hello Triangles!");
+            Console.WriteLine("[25.12.21] Shaders!");
             Console.ResetColor();
 
             string vertexShaderSource;
@@ -73,12 +85,12 @@ namespace OpenGl.SapperTK.Windows
             //fragmentShaderSource = File.ReadAllText("./Shaders/OrangeFragmentShader.glsl");
             //_shaderProgram = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 
-            vertexShaderSource = File.ReadAllText("./Shaders/YellowVertexShaders.glsl");
-            fragmentShaderSource = File.ReadAllText("./Shaders/YellowFragmentShader.glsl");
-            _shaderProgramSecond = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
+            //vertexShaderSource = File.ReadAllText("./Shaders/YellowVertexShaders.glsl");
+            //fragmentShaderSource = File.ReadAllText("./Shaders/YellowFragmentShader.glsl");
+            //_shaderProgramSecond = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 
-            vertexShaderSource = File.ReadAllText("./Shaders/Custom/Dynamic/vertex1.glsl");
-            fragmentShaderSource = File.ReadAllText("./Shaders/Custom/Dynamic/fragment1.glsl");
+            vertexShaderSource = File.ReadAllText("./Shaders/Custom/Static/vertex2.glsl");
+            fragmentShaderSource = File.ReadAllText("./Shaders/Custom/Static/fragment2.glsl");
             _shaderProgram = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 
             base.OnLoad();
@@ -92,14 +104,25 @@ namespace OpenGl.SapperTK.Windows
             GL.LineWidth(2f);
 
 
-            for (int i = 0; i < _vaos.Count; i++)
+            //for (int i = 0; i < _vaos.Count; i++)
+            //{
+            //    if(i == 0 || i % 2 == 0)
+            //        UIElements.DrawElement(_vaos[i], _shaderProgram);
+            //    else UIElements.DrawElement(_vaos[i], _shaderProgramSecond);
+            //    UIElements.UniformAnimate(_shaderProgram, "ourValue");
+            //}
+
+            GL.UseProgram(_shaderProgram);
+            var vertices = new[]
             {
-                if(i == 0 || i % 2 == 0)
-                    UIElements.DrawElement(_vaos[i], _shaderProgram);
-                else UIElements.DrawElement(_vaos[i], _shaderProgramSecond);
-                UIElements.UseUniform(_shaderProgram, "ourValue");
-            }
-                
+                -0.5f, -0.5f, 0f,  1.0f, 0f, 0f, 
+                0f, 0.5f, 0f,      0f, 1.0f, 0f,
+                0.5f, -0.5f, 0f,   0f, 0f, 1,0f
+            };
+            UIElements.CreateColorElement(vertices);
+            //UIElements.DrawElement(rainbowTriangle, _shaderProgram);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); // включение wireframe mode (каркасный режим)
 
             Context.SwapBuffers();

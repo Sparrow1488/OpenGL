@@ -40,13 +40,17 @@ namespace OpenGl.SapperTK.DrawTools
             };
             return CreateElement(vertices, indices);
         }
-
-        public static void UseUniform(int shaderProgram, string uniformValue)
+        
+        /// <summary>
+        /// Используя тип uniform в шейдерной программе, плавно анимируем затухание, появление цвета
+        /// </summary>
+        public static void UniformAnimate(int shaderProgram, string uniformValue)
         {
             var time = GLFW.GetTime();
             var greenValue = Math.Sin(time) / 2f + 0.5f;
+            var redValue = Math.Cos(time) / 2f + 0.5f;
             var vertexColorLocation = GL.GetUniformLocation(shaderProgram, uniformValue);
-            GL.Uniform4(vertexColorLocation, new Color4(0.5f, (float)greenValue, 0f, 1.0f));
+            GL.Uniform4(vertexColorLocation, new Color4((float)redValue, (float)greenValue, 0f, 1.0f));
         }
 
         public static int CreateShaderProgram(string vertexShaders, string fragmentShaders)
@@ -106,6 +110,27 @@ namespace OpenGl.SapperTK.DrawTools
             return vertexArrayObject;
         }
 
-        
+        /// <summary>
+        /// VAO
+        /// </summary>
+        public static int CreateColorElement(float[] vertAndColors)
+        {
+            var vao = GL.GenVertexArray();
+            GL.BindVertexArray(vao);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vao);
+
+            var vbo = GL.GenVertexArray();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+            GL.BufferData(BufferTarget.ArrayBuffer, vertAndColors.Length * sizeof(float), vertAndColors, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
+            GL.EnableVertexAttribArray(0);
+
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 3 * sizeof(float));
+            GL.EnableVertexAttribArray(1);
+
+            return vao;
+        }
     }
 }

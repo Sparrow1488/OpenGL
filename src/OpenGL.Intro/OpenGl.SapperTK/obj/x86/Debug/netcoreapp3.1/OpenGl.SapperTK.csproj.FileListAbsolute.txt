@@ -34,3 +34,5 @@ C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGl.S
 C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\bin\x86\Debug\netcoreapp3.1\Shaders\Custom\Static\vertex1.glsl
 C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\bin\x86\Debug\netcoreapp3.1\Shaders\Custom\Dynamic\fragment1.glsl
 C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\bin\x86\Debug\netcoreapp3.1\Shaders\Custom\Dynamic\vertex1.glsl
+C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\bin\x86\Debug\netcoreapp3.1\Shaders\Custom\Static\fragment2.glsl
+C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGl.SapperTK\bin\x86\Debug\netcoreapp3.1\Shaders\Custom\Static\vertex2.glsl
