@@ -29,6 +29,12 @@
     <None Update="Shaders\Custom\Static\vertex1.glsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Shaders\Custom\Transform\fragment1.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Shaders\Custom\Transform\vertex1.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Shaders\OragneVertexShaders.glsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -7,16 +7,17 @@ using OpenGl.SapperTK.DrawTools;
 using System.IO;
 using System;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using OpenGl.SapperTK.Entities;
 
 namespace OpenGl.SapperTK.Windows
 {
     internal class Game : GameWindow
     {
         private List<int> _vaos = new List<int>();
-        private int _verticesBufferObject;
+        private List<Shader> _shaders = new List<Shader>();
 
-        private int _shaderProgram;
-        private int _shaderProgramSecond;
+        private Shader _transformShader;
+
 
         public Game() : 
             base(GameWindowSettings.Default, NativeWindowSettings.Default)
@@ -81,17 +82,17 @@ namespace OpenGl.SapperTK.Windows
 
             _vaos.Add(UIElements.CreateCenterQuadre(0.2f));
 
-            //vertexShaderSource = File.ReadAllText("./Shaders/OragneVertexShaders.glsl");
-            //fragmentShaderSource = File.ReadAllText("./Shaders/OrangeFragmentShader.glsl");
-            //_shaderProgram = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
+            vertexShaderSource = "./Shaders/YellowVertexShaders.glsl";
+            fragmentShaderSource = "./Shaders/YellowFragmentShader.glsl";
+            _shaders.Add(new Shader(vertexShaderSource, fragmentShaderSource));
 
-            //vertexShaderSource = File.ReadAllText("./Shaders/YellowVertexShaders.glsl");
-            //fragmentShaderSource = File.ReadAllText("./Shaders/YellowFragmentShader.glsl");
-            //_shaderProgramSecond = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
+            vertexShaderSource = "./Shaders/Custom/Dynamic/vertex1.glsl";
+            fragmentShaderSource = "./Shaders/Custom/Dynamic/fragment1.glsl";
+            _shaders.Add(new Shader(vertexShaderSource, fragmentShaderSource));
 
-            vertexShaderSource = File.ReadAllText("./Shaders/Custom/Static/vertex2.glsl");
-            fragmentShaderSource = File.ReadAllText("./Shaders/Custom/Static/fragment2.glsl");
-            _shaderProgram = UIElements.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
+            vertexShaderSource = "./Shaders/Custom/Transform/vertex1.glsl";
+            fragmentShaderSource = "./Shaders/Custom/Transform/fragment1.glsl";
+            _transformShader = new Shader(vertexShaderSource, fragmentShaderSource);
 
             base.OnLoad();
         }
@@ -103,27 +104,25 @@ namespace OpenGl.SapperTK.Windows
 
             GL.LineWidth(2f);
 
-
+            //var rnd = new Random();
             //for (int i = 0; i < _vaos.Count; i++)
             //{
-            //    if(i == 0 || i % 2 == 0)
-            //        UIElements.DrawElement(_vaos[i], _shaderProgram);
-            //    else UIElements.DrawElement(_vaos[i], _shaderProgramSecond);
-            //    UIElements.UniformAnimate(_shaderProgram, "ourValue");
+            //    UIElements.DrawElement(_vaos[i], _shaders[rnd.Next(_shaders.Count - 1)].UID);
+            //    UIElements.DrawElement(_vaos[i], _shaders[rnd.Next(_shaders.Count - 1)].UID);
             //}
 
-            GL.UseProgram(_shaderProgram);
             var vertices = new[]
             {
-                -0.5f, -0.5f, 0f,  1.0f, 0f, 0f, 
+                -0.5f, -0.5f, 0f,  1.0f, 0f, 0f,
                 0f, 0.5f, 0f,      0f, 1.0f, 0f,
                 0.5f, -0.5f, 0f,   0f, 0f, 1,0f
             };
-            UIElements.CreateColorElement(vertices);
-            //UIElements.DrawElement(rainbowTriangle, _shaderProgram);
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            _transformShader.Use();
+            UIElements.UniformAnimate(_transformShader.UID, "uniColor");
+            UIElements.DrawElement(_vaos[1], _transformShader.UID);
 
-            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); // включение wireframe mode (каркасный режим)
+            //UIElements.CreateColorElement(vertices);
+            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
             Context.SwapBuffers();
             base.OnRenderFrame(args);
@@ -133,10 +132,15 @@ namespace OpenGl.SapperTK.Windows
         {
             // выгружаем все ресурсы
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.DeleteBuffers(0, ref _verticesBufferObject);
+            //GL.DeleteBuffers(0, ref _verticesBufferObject);
 
-            GL.UseProgram(_shaderProgram);
-            GL.DeleteProgram(_shaderProgram);
+            for (int i = 0; i < _shaders.Count; i++)
+            {
+                GL.UseProgram(_shaders[i].UID);
+                GL.DeleteProgram(_shaders[i].UID);
+                _shaders.RemoveAt(i);
+            }
+            
 
             base.OnUnload();
         }

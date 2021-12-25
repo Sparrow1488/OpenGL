@@ -1,7 +1,9 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using OpenGl.SapperTK.Entities;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
+using System.IO;
 
 namespace OpenGl.SapperTK.DrawTools
 {
@@ -53,32 +55,9 @@ namespace OpenGl.SapperTK.DrawTools
             GL.Uniform4(vertexColorLocation, new Color4((float)redValue, (float)greenValue, 0f, 1.0f));
         }
 
-        public static int CreateShaderProgram(string vertexShaders, string fragmentShaders)
+        public static void UniformTransform()
         {
-            int vertexShader;
-            int fragmentShader;
-            
-            vertexShader = GL.CreateShader(ShaderType.VertexShader);
-            GL.ShaderSource(vertexShader, vertexShaders);
-            GL.CompileShader(vertexShader);
-            
-            fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-            GL.ShaderSource(fragmentShader, fragmentShaders);
-            GL.CompileShader(fragmentShader);
 
-            int shaderProgram = GL.CreateProgram();
-            GL.AttachShader(shaderProgram, vertexShader);
-            GL.AttachShader(shaderProgram, fragmentShader);
-            GL.LinkProgram(shaderProgram);
-
-            GL.DetachShader(shaderProgram, vertexShader);
-            GL.DetachShader(shaderProgram, fragmentShader);
-            GL.DeleteShader(vertexShader);
-            GL.DeleteShader(fragmentShader);
-
-            GL.UseProgram(shaderProgram);
-
-            return shaderProgram;
         }
 
         /// <returns>VAO</returns>
@@ -110,10 +89,7 @@ namespace OpenGl.SapperTK.DrawTools
             return vertexArrayObject;
         }
 
-        /// <summary>
-        /// VAO
-        /// </summary>
-        public static int CreateColorElement(float[] vertAndColors)
+        public static int CreateColorElement(float[] vertices)
         {
             var vao = GL.GenVertexArray();
             GL.BindVertexArray(vao);
@@ -121,7 +97,7 @@ namespace OpenGl.SapperTK.DrawTools
 
             var vbo = GL.GenVertexArray();
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-            GL.BufferData(BufferTarget.ArrayBuffer, vertAndColors.Length * sizeof(float), vertAndColors, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
@@ -131,6 +107,19 @@ namespace OpenGl.SapperTK.DrawTools
             GL.EnableVertexAttribArray(1);
 
             return vao;
+        }
+
+        /// <summary>
+        /// Отрисовывать через GL.DrawArrays(Triangle, 0, 3)
+        /// </summary>
+        /// <returns>VAO</returns>
+        public static int CreateRainbowElement(float[] vertAndColors)
+        {
+            var vertexShaderSource = "./Shaders/Custom/Static/vertex2.glsl";
+            var fragmentShaderSource = "./Shaders/Custom/Static/fragment2.glsl";
+            var shaderProgram = new Shader(vertexShaderSource, fragmentShaderSource).UID;
+            GL.UseProgram(shaderProgram);
+            return CreateColorElement(vertAndColors);
         }
     }
 }
