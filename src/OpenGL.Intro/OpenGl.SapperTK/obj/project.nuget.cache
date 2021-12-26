@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zNd3SmQOTO3CrnkaPvz3jOs51sKoHD9gnfNP4T8nsRkvq0gfMxHhPuEL2IDs7VSkNUzwsENGn04t8qtgE55ImQ==",
+  "dgSpecHash": "2FD257ewWT0ntLA6y3PM7fRGn4MK4mUuE8nRjaTfkvIDmsksML2Z8Gn5NjIDOv3zDyq8wFb/XVlN3WKJKS38lw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Александр\\Desktop\\Repsitories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
+  "projectFilePath": "C:\\Users\\Александр\\Desktop\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Александр\\.nuget\\packages\\opentk\\4.6.7\\opentk.4.6.7.nupkg.sha512",
     "C:\\Users\\Александр\\.nuget\\packages\\opentk.compute\\4.6.7\\opentk.compute.4.6.7.nupkg.sha512",

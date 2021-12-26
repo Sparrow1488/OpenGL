@@ -362,11 +362,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Александр\\Desktop\\Repsitories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
+      "projectUniqueName": "C:\\Users\\Александр\\Desktop\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
       "projectName": "OpenGl.SapperTK",
-      "projectPath": "C:\\Users\\Александр\\Desktop\\Repsitories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
+      "projectPath": "C:\\Users\\Александр\\Desktop\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
       "packagesPath": "C:\\Users\\Александр\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Александр\\Desktop\\Repsitories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\obj\\",
+      "outputPath": "C:\\Users\\Александр\\Desktop\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Александр\\AppData\\Roaming\\NuGet\\NuGet.Config",

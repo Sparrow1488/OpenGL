@@ -17,10 +17,16 @@
     <None Update="Shaders\Custom\Dynamic\vertex1.glsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Shaders\Custom\Static\fragment3.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Shaders\Custom\Static\fragment2.glsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Shaders\Custom\Static\fragment1.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Shaders\Custom\Static\vertex3.glsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Shaders\Custom\Static\vertex2.glsl">
@@ -57,6 +63,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Shaders\YellowVertexShaders.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Textures\tex1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

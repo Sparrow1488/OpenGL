@@ -136,5 +136,37 @@ namespace OpenGl.SapperTK.DrawTools
             GL.UseProgram(shaderProgram);
             return CreateColorElement(vertAndColors);
         }
+
+        public static int CreateTexture(string textureName)
+        {
+            var data = File.ReadAllBytes("./Textures/" + textureName);
+            var texture = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, texture);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, 1000, 1000, 0, PixelFormat.Rgb, PixelType.Byte, data);
+            GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+            return texture;
+        }
+
+        public static int CreateTextureElement(float[] vertices)
+        {
+            var vao = GL.GenVertexArray();
+            GL.BindVertexArray(vao);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vao);
+
+            var vbo = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
+            GL.EnableVertexAttribArray(0);
+
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 3 * sizeof(float));
+            GL.EnableVertexAttribArray(0);
+
+            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 6 * sizeof(float));
+            GL.EnableVertexAttribArray(2);
+            return vao;
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace OpenGl.SapperTK.Windows
         private List<Shader> _shaders = new List<Shader>();
 
         private Shader _transformShader;
-
+        private Shader _textureShader;
 
         public Game() : 
             base(GameWindowSettings.Default, NativeWindowSettings.Default)
@@ -94,6 +94,10 @@ namespace OpenGl.SapperTK.Windows
             fragmentShaderSource = "./Shaders/Custom/Transform/fragment1.glsl";
             _transformShader = new Shader(vertexShaderSource, fragmentShaderSource);
 
+            vertexShaderSource = "./Shaders/Custom/Static/vertex3.glsl";
+            fragmentShaderSource = "./Shaders/Custom/Static/fragment3.glsl";
+            _textureShader = new Shader(vertexShaderSource, fragmentShaderSource);
+
             base.OnLoad();
         }
 
@@ -121,7 +125,22 @@ namespace OpenGl.SapperTK.Windows
                 0f, 0.5f, 0f,      0f, 1.0f, 0f,
                 0.5f, -0.5f, 0f,   0f, 0f, 1,0f
             };
-            UIElements.CreateRainbowElement(vertices);
+            var verticesTex = new[]
+            {
+                -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   0.0f, 0.0f,
+                0.0f, 0.5f, 0.0f,      0.0f, 1.0f, 0.0f,  1.0f, 0.0f,
+                0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1,0f,    0.0f, 0.5f
+            };
+            //UIElements.CreateRainbowElement(vertices);
+            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+
+            _textureShader.Use();
+            var texture = UIElements.CreateTexture("tex1.jpg");
+            var elem = UIElements.CreateTextureElement(verticesTex);
+
+            GL.BindTexture(TextureTarget.Texture2D, texture);
+           GL.BindVertexArray(elem);
+            //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
             Context.SwapBuffers();
