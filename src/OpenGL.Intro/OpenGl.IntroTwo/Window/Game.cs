@@ -9,7 +9,7 @@ namespace OpenGl.IntroTwo.Window
     internal class Game : GameWindow
     {
         private int _triangle = -1;
-        private int _triangleNext = -1;
+        private int _quadre = -1;
         private Shader _testShader;
         private readonly GraphicEngine _engine;
 
@@ -26,14 +26,20 @@ namespace OpenGl.IntroTwo.Window
                 0.0f, 0.3f, 0.0f,
                 0.3f, -0.3f, 0.0f
             };
-            var nextTriangleVertices = new float[]
+            var quadreVertices = new float[]
             {
                 -1.0f, 0.8f, 0.0f,
                 -1.0f, 1.0f, 0.0f,
+                -0.8f, 1.0f, 0.0f,
                 -0.8f, 0.8f, 0.0f
             };
+            var quadreIndices = new uint[] // indices => указатели
+            {
+                0, 1, 2,
+                0, 3, 2
+            };
             _triangle = _engine.Create(triangleVertices);
-            _triangleNext = _engine.Create(nextTriangleVertices);
+            _quadre = _engine.Create(quadreVertices, quadreIndices);
             _testShader = new Shader("vertex1.glsl", "fragment1.glsl", "Static").Create();
 
             base.OnLoad();
@@ -49,8 +55,8 @@ namespace OpenGl.IntroTwo.Window
             GL.BindVertexArray(_triangle);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
-            GL.BindVertexArray(_triangleNext);
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            GL.BindVertexArray(_quadre);
+            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
 
             SwapBuffers();
 
