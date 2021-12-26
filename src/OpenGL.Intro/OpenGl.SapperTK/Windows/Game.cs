@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using OpenGl.SapperTK.DrawTools;
 using System.IO;
 using System;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace OpenGl.SapperTK.Windows
 {
@@ -23,6 +24,9 @@ namespace OpenGl.SapperTK.Windows
             CenterWindow(new Vector2i(720, 500));
             Context.SwapInterval = 5;
             //VSync = VSyncMode.On; // считается устаревшим
+
+            KeyDown += Game_KeyDown;
+            Console.WriteLine("To activate Wireframe mode press 'W' and to reset 'R'");
         }
 
         protected override void OnResize(ResizeEventArgs e)
@@ -98,6 +102,14 @@ namespace OpenGl.SapperTK.Windows
 
             Context.SwapBuffers();
             base.OnRenderFrame(args);
+        }
+
+        private void Game_KeyDown(KeyboardKeyEventArgs obj)
+        {
+            if (obj.Key == Keys.W)
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+            if (obj.Key == Keys.R)
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
         }
 
         protected override void OnUnload()
