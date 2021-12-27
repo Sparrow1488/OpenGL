@@ -1,9 +1,9 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp;
-using System;
-using System.IO;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using System.Collections.Generic;
+using System.IO;
 
 namespace OpenGl.IntroTwo.Entities
 {
@@ -16,23 +16,41 @@ namespace OpenGl.IntroTwo.Entities
             _texturePath = textureName;
         }
 
-        public Texture Create()
+        public Texture CombineTexture(Texture texture, Shader usingShader)
         {
-            string root = "./Textures";
-            Id = GL.GenTexture();
+            GL.ActiveTexture(TextureUnit.Texture0);
+            GL.BindTexture(TextureTarget.Texture2D, texture.Id);
+            GL.ActiveTexture(TextureUnit.Texture1);
             GL.BindTexture(TextureTarget.Texture2D, Id);
-            var image = Image.Load<Rgba32>(Path.Combine(root, _texturePath));
-            var pixels = GetPixels(image);
-            GL.TexImage2D(TextureTarget.Texture2D, 0, 
-                PixelInternalFormat.Rgba, image.Width, 
-                    image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
-            GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+
+            GL.Uniform1(GL.GetUniformLocation(usingShader.Id, "texture1"), 0);
+            GL.Uniform1(GL.GetUniformLocation(usingShader.Id, "texture2"), 1);
             return this;
         }
 
         public void Use()
         {
             GL.BindTexture(TextureTarget.Texture2D, Id);
+        }
+
+        public Texture Create()
+        {
+            string root = "./Textures";
+            Id = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, Id);
+            
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+
+            var image = Image.Load<Rgba32>(Path.Combine(root, _texturePath));
+            image.Mutate(x => x.Flip(FlipMode.Vertical)); // для корректного отображения по вертикали
+            var pixels = GetPixels(image);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, 
+                PixelInternalFormat.Rgba, image.Width, 
+                    image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
+            GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+            return this;
         }
 
         private List<byte> GetPixels(Image<Rgba32> image)

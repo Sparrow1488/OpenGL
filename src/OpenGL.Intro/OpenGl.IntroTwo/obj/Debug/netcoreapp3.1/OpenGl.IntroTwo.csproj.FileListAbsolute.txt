@@ -71,3 +71,6 @@ C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\Op
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Textures\blockTexture.jpg
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Shaders\Static\fragColTex1.glsl
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Shaders\Static\vertexColTex1.glsl
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Textures\wall.jpg
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Textures\box.jpg
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Textures\awesomeface.png
