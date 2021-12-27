@@ -68,3 +68,6 @@ C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\Op
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\obj\Debug\netcoreapp3.1\OpenGl.IntroTwo.genruntimeconfig.cache
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Shaders\Static\fragTex1.glsl
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Shaders\Static\verticeTex1.glsl
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Textures\blockTexture.jpg
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Shaders\Static\fragColTex1.glsl
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.IntroTwo\bin\Debug\netcoreapp3.1\Shaders\Static\vertexColTex1.glsl
