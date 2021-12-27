@@ -11,6 +11,7 @@ namespace OpenGl.IntroTwo.Window
         private int _triangle = -1;
         private int _quadre = -1;
         private Shader _testShader;
+        private Shader _dynamicShader;
         private readonly GraphicEngine _engine;
 
         public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default) {
@@ -41,6 +42,7 @@ namespace OpenGl.IntroTwo.Window
             _triangle = _engine.Create(triangleVertices);
             _quadre = _engine.Create(quadreVertices, quadreIndices);
             _testShader = new Shader("vertex1.glsl", "fragment1.glsl", "Static").Create();
+            _dynamicShader = new Shader("vertex1.glsl", "fragment1.glsl", "Dynamic").Create();
 
             base.OnLoad();
         }
@@ -51,12 +53,13 @@ namespace OpenGl.IntroTwo.Window
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
 
-            _testShader.Use();
+            _dynamicShader.UseColorAnimation("uniColor");
             GL.BindVertexArray(_triangle);
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3); // если элемент состоит из VBO&VAO
 
+            _testShader.Use();
             GL.BindVertexArray(_quadre);
-            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0); // если элемент имеет указатели VAO&VBO&EBO
 
             SwapBuffers();
 

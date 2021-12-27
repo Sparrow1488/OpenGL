@@ -1,4 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using System;
 using System.IO;
 
 namespace OpenGl.IntroTwo.Entities
@@ -39,6 +42,17 @@ namespace OpenGl.IntroTwo.Entities
         public void Use()
         {
             GL.UseProgram(Id);
+        }
+
+        public void UseColorAnimation(string uniformName)
+        {
+            Use();
+            var time = GLFW.GetTime();
+            var greenColor = (float)Math.Sin(time) / 2f + 0.5f;
+            var uniformLocation = GL.GetUniformLocation(Id, uniformName);
+            if (uniformLocation == -1)
+                Console.WriteLine("Не удалось найти атрибут uniform с названием " + uniformName);
+            GL.Uniform4(uniformLocation, new Color4(0f, greenColor, 0f, 1f));
         }
     }
 }
