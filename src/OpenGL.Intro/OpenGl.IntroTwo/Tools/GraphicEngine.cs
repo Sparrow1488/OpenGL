@@ -1,4 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using OpenGl.IntroTwo.Entities;
 
 namespace OpenGl.IntroTwo.Tools
 {
@@ -46,6 +47,11 @@ namespace OpenGl.IntroTwo.Tools
             GL.EnableVertexAttribArray(0);
 
             return vao;
+        }
+
+        public int CreateTextured(float[] vertices, Texture texture)
+        {
+
         }
     }
 }

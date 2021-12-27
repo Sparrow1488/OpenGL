@@ -10,6 +10,7 @@ namespace OpenGl.IntroTwo.Window
     {
         private int _triangle = -1;
         private int _quadre = -1;
+        private int _quadreTex = -1;
         private Shader _testShader;
         private Shader _dynamicShader;
         private readonly GraphicEngine _engine;
@@ -34,6 +35,10 @@ namespace OpenGl.IntroTwo.Window
                 -0.8f, 1.0f, 0.0f,
                 -0.8f, 0.8f, 0.0f
             };
+            var quadreTexVertices = new float[]
+            {
+                
+            };
             var quadreIndices = new uint[] // indices => указатели
             {
                 0, 1, 2,
@@ -43,6 +48,9 @@ namespace OpenGl.IntroTwo.Window
             _quadre = _engine.Create(quadreVertices, quadreIndices);
             _testShader = new Shader("vertex1.glsl", "fragment1.glsl", "Static").Create();
             _dynamicShader = new Shader("vertex1.glsl", "fragment1.glsl", "Dynamic").Create();
+
+            var texture = new Texture("tex1.jpg");
+            _quadreTex = _engine.CreateTextured(quadreTexVertices, texture);
 
             base.OnLoad();
         }
