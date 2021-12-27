@@ -1,8 +1,11 @@
 ﻿using OpenGl.IntroTwo.Entities;
 using OpenGl.IntroTwo.Tools;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using System.Collections.Generic;
+using System.IO;
 
 namespace OpenGl.IntroTwo.Window
 {
@@ -22,10 +25,13 @@ namespace OpenGl.IntroTwo.Window
         private Texture _boxTexture;
         private Texture _faceTexture;
         private readonly GraphicEngine _engine;
+        private string[] _files;
+        private int _currentFileIndex = 0;
 
         public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default) {
             Context.SwapInterval = 3;
             _engine = new GraphicEngine();
+            CenterWindow(new Vector2i(640, 500));
         }
 
         protected override void OnLoad()
@@ -87,13 +93,15 @@ namespace OpenGl.IntroTwo.Window
             _colorTextureShader = new Shader("vertexColTex1.glsl", "fragColTex1.glsl", "Static").Create();
 
             _texture = new Texture("tex1.jpg").Create();
-            _boxTexture = new Texture("box.jpg").Create();
+            _boxTexture = new Texture("fantasy.gif").Create();
             _faceTexture = new Texture("awesomeface.png").Create();
 
             _triangleTex = _engine.CreateTextured(triangleTexVertices);
             _quadreTex = _engine.CreateTextured(quadreTexVertices, quadreTexIndices);
             _quadreColorTex = _engine.CreateColoredTextured(quadreColorTexVertices, quadreTexIndices);
             _doubleTexQuadre = _engine.CreateTextured(quadreTexVertices, quadreTexIndices);
+
+            _files = Directory.GetFiles("./Textures/Gif");
 
             base.OnLoad();
         }
@@ -104,18 +112,26 @@ namespace OpenGl.IntroTwo.Window
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
 
+            if (_currentFileIndex - 3 == _files.Length)
+                _currentFileIndex = _currentFileIndex;
+            if (_currentFileIndex == _files.Length)
+                _currentFileIndex = 0;
+            var textureName = new FileInfo(_files[_currentFileIndex]).Name;
+            var texture = new Texture("Gif/" + textureName).Create();
             _textureShader.Use();
-            _boxTexture.CombineTexture(_faceTexture, _textureShader).Use();
+            texture.Use();
             GL.BindVertexArray(_doubleTexQuadre);
             GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+            _currentFileIndex++;
 
-            _testShader.Use();
-            GL.BindVertexArray(_quadre);
-            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0); // если элемент имеет указатели VAO&VBO&EBO
 
-            _dynamicShader.UseColorAnimation("uniColor");
-            GL.BindVertexArray(_triangle);
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3); // если элемент состоит из VBO&VAO
+            //_testShader.Use();
+            //GL.BindVertexArray(_quadre);
+            //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0); // если элемент имеет указатели VAO&VBO&EBO
+
+            //_dynamicShader.UseColorAnimation("uniColor");
+            //GL.BindVertexArray(_triangle);
+            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3); // если элемент состоит из VBO&VAO
 
             SwapBuffers();
 
