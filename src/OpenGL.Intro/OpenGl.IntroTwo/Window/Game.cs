@@ -100,37 +100,22 @@ namespace OpenGl.IntroTwo.Window
 
         protected override void OnRenderFrame(FrameEventArgs args)
         {
-            GL.ClearColor(0.3f, 0.2f, 0.3f, 1.0f);
+            GL.ClearColor(0.5f, 0.3f, 0.1f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
 
-            _boxTexture.CombineTexture(_faceTexture, _textureShader).Use();
             _textureShader.Use();
+            _boxTexture.CombineTexture(_faceTexture, _textureShader).Use();
             GL.BindVertexArray(_doubleTexQuadre);
             GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
 
-            //_textureNext.Use();
-            //_colorTextureShader.Use();
-            //GL.BindVertexArray(_quadreColorTex);
-            //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+            _testShader.Use();
+            GL.BindVertexArray(_quadre);
+            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0); // если элемент имеет указатели VAO&VBO&EBO
 
-            //_textureNext.Use();
-            //_textureShader.Use();
-            //GL.BindVertexArray(_quadreTex);
-            //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
-
-            //_texture.Use();
-            //_textureShader.Use();
-            //GL.BindVertexArray(_triangleTex);
-            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
-
-            //_dynamicShader.UseColorAnimation("uniColor");
-            //GL.BindVertexArray(_triangle);
-            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3); // если элемент состоит из VBO&VAO
-
-            //_testShader.Use();
-            //GL.BindVertexArray(_quadre);
-            //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0); // если элемент имеет указатели VAO&VBO&EBO
+            _dynamicShader.UseColorAnimation("uniColor");
+            GL.BindVertexArray(_triangle);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3); // если элемент состоит из VBO&VAO
 
             SwapBuffers();
 
