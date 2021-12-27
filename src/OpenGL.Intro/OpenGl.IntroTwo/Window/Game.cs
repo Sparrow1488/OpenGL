@@ -10,13 +10,15 @@ namespace OpenGl.IntroTwo.Window
     {
         private int _triangle = -1;
         private int _quadre = -1;
-        private int _quadreTex = -1;
+        private int _triangleTex = -1;
         private Shader _testShader;
         private Shader _dynamicShader;
+        private Shader _textureShader;
+        private Texture _texture;
         private readonly GraphicEngine _engine;
 
         public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default) {
-            Context.SwapInterval = 2;
+            Context.SwapInterval = 3;
             _engine = new GraphicEngine();
         }
 
@@ -37,7 +39,9 @@ namespace OpenGl.IntroTwo.Window
             };
             var quadreTexVertices = new float[]
             {
-                
+                -0.5f, -0.5f, 0.0f,     0.0f, 0.0f,
+                0.0f, 0.5f, 0.0f,        0.0f, 0.5f,
+                0.5f, -0.5f, 0.0f,      0.5f, 0.0f 
             };
             var quadreIndices = new uint[] // indices => указатели
             {
@@ -48,9 +52,10 @@ namespace OpenGl.IntroTwo.Window
             _quadre = _engine.Create(quadreVertices, quadreIndices);
             _testShader = new Shader("vertex1.glsl", "fragment1.glsl", "Static").Create();
             _dynamicShader = new Shader("vertex1.glsl", "fragment1.glsl", "Dynamic").Create();
+            _textureShader = new Shader("verticeTex1.glsl", "fragTex1.glsl", "Static").Create();
 
-            var texture = new Texture("tex1.jpg");
-            _quadreTex = _engine.CreateTextured(quadreTexVertices, texture);
+            _texture = new Texture("tex1.jpg").Create();
+            _triangleTex = _engine.CreateTextured(quadreTexVertices);
 
             base.OnLoad();
         }
@@ -60,6 +65,11 @@ namespace OpenGl.IntroTwo.Window
             GL.ClearColor(0.3f, 0.2f, 0.3f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
+
+            _texture.Use();
+            _textureShader.Use();
+            GL.BindVertexArray(_triangleTex);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
             _dynamicShader.UseColorAnimation("uniColor");
             GL.BindVertexArray(_triangle);

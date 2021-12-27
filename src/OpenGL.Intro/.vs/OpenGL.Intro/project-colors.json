@@ -5,7 +5,22 @@
       "ProjectGuid": "d6006382-e729-4922-a040-0e33d55218ee",
       "DisplayName": "OpenGL.Intro",
       "ColorIndex": 0
+    },
+    "e19378ef-02e7-4967-87b9-3b0dc68523b2": {
+      "ProjectGuid": "e19378ef-02e7-4967-87b9-3b0dc68523b2",
+      "DisplayName": "OpenGl.Sapper",
+      "ColorIndex": 1
+    },
+    "cf01d3ba-3abb-46d4-a75c-1cc864f28bc5": {
+      "ProjectGuid": "cf01d3ba-3abb-46d4-a75c-1cc864f28bc5",
+      "DisplayName": "OpenGl.IntroTwo",
+      "ColorIndex": 2
+    },
+    "9866a660-be1e-4e11-924e-86c75c93a757": {
+      "ProjectGuid": "9866a660-be1e-4e11-924e-86c75c93a757",
+      "DisplayName": "OpenGl.SapperTK",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 4
 }

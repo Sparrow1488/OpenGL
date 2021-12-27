@@ -9,7 +9,7 @@ namespace OpenGl.IntroTwo.Entities
 {
     internal class Texture
     {
-        public int Id { get; set; }
+        public int Id { get; set; } = -1;
         private readonly string _texturePath;
         public Texture(string textureName)
         {
@@ -19,20 +19,20 @@ namespace OpenGl.IntroTwo.Entities
         public Texture Create()
         {
             string root = "./Textures";
-            var texture = GL.GenTexture();
-            GL.BindTexture(TextureTarget.Texture2D, texture);
+            Id = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, Id);
             var image = Image.Load<Rgba32>(Path.Combine(root, _texturePath));
             var pixels = GetPixels(image);
             GL.TexImage2D(TextureTarget.Texture2D, 0, 
                 PixelInternalFormat.Rgba, image.Width, 
                     image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
-
+            GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
             return this;
         }
 
         public void Use()
         {
-
+            GL.BindTexture(TextureTarget.Texture2D, Id);
         }
 
         private List<byte> GetPixels(Image<Rgba32> image)
