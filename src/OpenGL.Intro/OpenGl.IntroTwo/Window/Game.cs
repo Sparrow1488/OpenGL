@@ -63,12 +63,19 @@ namespace OpenGl.IntroTwo.Window
                 0.5f, -0.5f, 0.0f,      0.5f, 0.0f 
             };
 
+            //var quadreTexVertices = new float[]
+            //{
+            //    -0.7f, -0.7f, 0.0f,     0.0f, 0.0f,
+            //    -0.7f, 0.7f, 0.0f,      0.0f, 1.0f,
+            //    0.7f, 0.7f, 0.0f,        1.0f, 1.0f,
+            //    0.7f, -0.7f, 0.0f,      1.0f, 0.0f
+            //};
             var quadreTexVertices = new float[]
             {
-                -0.7f, -0.7f, 0.0f,     0.0f, 0.0f,
-                -0.7f, 0.7f, 0.0f,      0.0f, 1.0f,
-                0.7f, 0.7f, 0.0f,        1.0f, 1.0f,
-                0.7f, -0.7f, 0.0f,      1.0f, 0.0f
+                -1.0f, -1.0f, 0.0f,     0.0f, 0.0f,
+                -1.0f, 1.0f, 0.0f,      0.0f, 1.0f,
+                1.0f, 1.0f, 0.0f,        1.0f, 1.0f,
+                1.0f, -1.0f, 0.0f,      1.0f, 0.0f
             };
             var quadreTexIndices = new uint[]
             {
@@ -112,8 +119,6 @@ namespace OpenGl.IntroTwo.Window
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
 
-            if (_currentFileIndex - 3 == _files.Length)
-                _currentFileIndex = _currentFileIndex;
             if (_currentFileIndex == _files.Length)
                 _currentFileIndex = 0;
             var textureName = new FileInfo(_files[_currentFileIndex]).Name;
