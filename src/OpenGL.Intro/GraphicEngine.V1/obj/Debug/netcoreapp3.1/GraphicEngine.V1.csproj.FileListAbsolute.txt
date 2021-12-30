@@ -1,0 +1,10 @@
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\obj\Debug\netcoreapp3.1\GraphicEngine.V1.csproj.AssemblyReference.cache
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\obj\Debug\netcoreapp3.1\GraphicEngine.V1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\obj\Debug\netcoreapp3.1\GraphicEngine.V1.AssemblyInfoInputs.cache
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\obj\Debug\netcoreapp3.1\GraphicEngine.V1.AssemblyInfo.cs
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\obj\Debug\netcoreapp3.1\GraphicEngine.V1.csproj.CoreCompileInputs.cache
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\bin\Debug\netcoreapp3.1\GraphicEngine.V1.deps.json
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\bin\Debug\netcoreapp3.1\GraphicEngine.V1.dll
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\bin\Debug\netcoreapp3.1\GraphicEngine.V1.pdb
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\obj\Debug\netcoreapp3.1\GraphicEngine.V1.dll
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\GraphicEngine.V1\obj\Debug\netcoreapp3.1\GraphicEngine.V1.pdb
