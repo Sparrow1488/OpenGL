@@ -35,4 +35,5 @@ C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.
 C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Shaders\Transform\vertexTex1.glsl
 C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Textures\box.jpg
 C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Textures\Linus.jpg
-C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.csproj.CopyComplete
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Shaders\Normalize\fragment.glsl
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Shaders\Normalize\vertex.glsl

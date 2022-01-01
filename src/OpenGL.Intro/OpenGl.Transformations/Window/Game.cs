@@ -5,13 +5,16 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using System;
+using System.Collections.Generic;
 
 namespace OpenGl.Transformations.Window
 {
     internal class Game : GameWindow
     {
+        private List<int> _cells = new List<int>();
         private int _quadre = -1;
         private Shader _transformShader;
+        private Shader _normalizeShader;
         private Texture _texture;
         private Engine _engine;
 
@@ -38,8 +41,11 @@ namespace OpenGl.Transformations.Window
                 0, 3, 2
             };
             _transformShader = new Shader("vertex.glsl", "fragment.glsl", "Transform").Create();
+            _normalizeShader = new Shader("vertex.glsl", "fragment.glsl", "Normalize").Create();
             _texture = new Texture("Linus.jpg").Create();
             _quadre = _engine.CreateTextured(vertices, indices);
+
+            GenerateCells();
 
             base.OnLoad();
         }
@@ -49,18 +55,28 @@ namespace OpenGl.Transformations.Window
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
-            GL.ClearColor(new Color4(250, 250, 250, 1));
+            GL.ClearColor(new Color4(230, 230, 250, 1));
 
-            _texture.Use();
-            _transformShader.Use();
-            var location = GL.GetUniformLocation(_transformShader.Id, "transform");
+            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+            for (int i = 0; i < _cells.Count; i++)
+            {
+                _normalizeShader.Use();
+                GL.BindVertexArray(_cells[i]);
+                GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+            }
 
-            var rotate = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(_angleZ -= 5f));
-            if (location == -1) throw new InvalidOperationException("Не удалось обнаружить позицию uniform в шейдере");
-            GL.UniformMatrix4(location, true, ref rotate);
+            #region Че-то с текстурами
+            // _texture.Use();
+            //_transformShader.Use();
+            //var location = GL.GetUniformLocation(_transformShader.Id, "transform");
 
-            GL.BindVertexArray(_quadre);
-            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+            //var rotate = Matrix4.CreateRotationY(MathHelper.DegreesToRadians(_angleZ -= 5f));
+            //if (location == -1) throw new InvalidOperationException("Не удалось обнаружить позицию uniform в шейдере");
+            //GL.UniformMatrix4(location, true, ref rotate);
+
+            //GL.BindVertexArray(_quadre);
+            //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+            #endregion
 
             SwapBuffers();
             base.OnRenderFrame(args);
@@ -70,6 +86,45 @@ namespace OpenGl.Transformations.Window
         {
             GL.Viewport(0, 0, e.Width, e.Height);
             base.OnResize(e);
+        }
+
+        private void GenerateCells()
+        {
+            int quadreSize = 10;
+            float step = 0.2f;
+            
+            var indices = new uint[]
+            {
+                0, 1, 2,
+                0, 3, 2
+            };
+
+            var vertices = new float[]
+            {
+                0.0f, 0.0f, 0.0f,
+                0.0f, step, 0.0f,
+                step, step, 0.0f,
+                step, 0.0f, 0.0f
+            };
+
+            for (int column = 0; column < quadreSize; column++)
+            {
+                for (int row = 0; row < quadreSize; row++)
+                {
+                    vertices[0] = step * row;
+                    vertices[3] = step * row;
+                    vertices[6] = step * row + step;
+                    vertices[9] = step * row + step;
+                    _cells.Add(_engine.Create(vertices, indices));
+                }
+
+                vertices[1] += step;
+                vertices[4] += step;
+                vertices[7] += step;
+                vertices[10] += step;
+            }
+
+
         }
     }
 }
