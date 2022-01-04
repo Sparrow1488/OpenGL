@@ -77,3 +77,5 @@ C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\Op
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.dll
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.pdb
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.genruntimeconfig.cache
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Shaders\Colored\fragment1.glsl
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Shaders\Colored\vertex1.glsl

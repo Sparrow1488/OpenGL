@@ -10,7 +10,9 @@ namespace GraphicEngine.V1.Entities
     public class Texture
     {
         public int Id { get; set; } = -1;
-        private readonly string _texturePath;
+        private byte[] Pixels { get; set; } = new byte[0];
+        private readonly string _texturePath = string.Empty;
+
         public Texture(string textureName)
         {
             _texturePath = textureName;

@@ -43,6 +43,14 @@ namespace GraphicEngine.V1
             return vao;
         }
 
+        public int CreateWithoutBinding(float[] vertices, uint[] indices)
+        {
+            var vao = CreateVerticesArrayObject(vertices);
+            CreateElementsArrayBuffer(indices);
+
+            return vao;
+        }
+
         /// <summary>
         /// [VBO&VAO] Создает фигуру с шагом 3
         /// </summary>

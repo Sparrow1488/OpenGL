@@ -8,9 +8,9 @@ namespace GraphicEngine.V1.Entities
 {
     public class Shader
     {
-        public int Id { get; set; }
-        private readonly string _vertexShader;
-        private readonly string _fragmentShader;
+        public int Id { get; set; } = -1;
+        private readonly string _vertexShader = string.Empty;
+        private readonly string _fragmentShader = string.Empty;
 
         public Shader(string vertexShaderName, string fragmentShaderName, string directory)
         {

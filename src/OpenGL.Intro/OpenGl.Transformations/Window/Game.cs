@@ -12,6 +12,7 @@ namespace OpenGl.Transformations.Window
     internal class Game : GameWindow
     {
         private List<int> _cells = new List<int>();
+        private List<GameObject> _gameObjects = new List<GameObject>();
         private int _quadre = -1;
         private Shader _transformShader;
         private Shader _normalizeShader;
@@ -25,27 +26,57 @@ namespace OpenGl.Transformations.Window
             Context.SwapInterval = 2;
         }
 
+
         protected override void OnLoad()
         {
+            #region Cells
+
+            //var vertices = new float[]
+            //{
+            //    // position         texture
+            //    -0.3f, -0.3f, 0.0f, 0.0f, 0.0f,
+            //    -0.3f, 0.3f, 0.0f,  0.0f, 1.0f,
+            //    0.3f, 0.3f, 0.0f,   1.0f, 1.0f,
+            //    0.3f, -0.3f, 0.0f,   1.0f, 0.0f
+            //};
+            //var indices = new uint[]
+            //{
+            //    0, 1, 2,
+            //    0, 3, 2
+            //};
+            //_transformShader = new Shader("vertex.glsl", "fragment.glsl", "Transform").Create();
+            //_normalizeShader = new Shader("vertex.glsl", "fragment.glsl", "Normalize").Create();
+            //_texture = new Texture("Linus.jpg").Create();
+            //_quadre = _engine.CreateTextured(vertices, indices);
+
+            //GenerateCells();
+
+            #endregion
+
+            //var vertices = new float[]
+            //{
+            //     position           color
+            //    -0.2f, -0.2f, 0.0f,    1.0f, 0.0f, 0.0f,
+            //    -0.2f,  0.2f, 0.0f,    0.0f, 1.0f, 0.0f,
+            //    0.2f, 0.2f, 0.0f,      0.0f, 0.0f, 1.0f,
+            //    0.2f, -0.2f, 0.0f,     0.0f, 1.0f, 0.0f
+            //};
             var vertices = new float[]
             {
-                // position         texture
-                -0.3f, -0.3f, 0.0f, 0.0f, 0.0f,
-                -0.3f, 0.3f, 0.0f,  0.0f, 1.0f,
-                0.3f, 0.3f, 0.0f,   1.0f, 1.0f,
-                0.3f, -0.3f, 0.0f,   1.0f, 0.0f
+                -0.2f, -0.2f, 0.0f,
+                -0.2f,  0.2f, 0.0f,
+                0.2f, 0.2f, 0.0f,
+                0.2f, -0.2f, 0.0f
             };
             var indices = new uint[]
             {
                 0, 1, 2,
                 0, 3, 2
             };
-            _transformShader = new Shader("vertex.glsl", "fragment.glsl", "Transform").Create();
-            _normalizeShader = new Shader("vertex.glsl", "fragment.glsl", "Normalize").Create();
-            _texture = new Texture("Linus.jpg").Create();
-            _quadre = _engine.CreateTextured(vertices, indices);
-
-            GenerateCells();
+            var coloredShader = new Shader("vertex1.glsl", "fragment1.glsl", "Colored").Create();
+            var gameObj = new GameObject().Create(vertices, indices)
+                                          .Use(coloredShader);
+            _gameObjects.Add(gameObj);
 
             base.OnLoad();
         }
@@ -57,13 +88,23 @@ namespace OpenGl.Transformations.Window
             GL.LoadIdentity();
             GL.ClearColor(new Color4(230, 230, 250, 1));
 
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
-            for (int i = 0; i < _cells.Count; i++)
+            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+
+            foreach (var gameObject in _gameObjects)
             {
-                _normalizeShader.Use();
-                GL.BindVertexArray(_cells[i]);
-                GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+                gameObject.Draw();
             }
+
+            #region Cells
+
+            //for (int i = 0; i < _cells.Count; i++)
+            //{
+            //    _normalizeShader.Use();
+            //    GL.BindVertexArray(_cells[i]);
+            //    GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+            
+            //}
+            #endregion
 
             #region Че-то с текстурами
             // _texture.Use();
