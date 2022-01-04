@@ -1,9 +1,11 @@
 ﻿using GraphicEngine.V1;
 using GraphicEngine.V1.Entities;
+using OpenGl.Transformations.Tools;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using System.Collections.Generic;
 
@@ -13,68 +15,33 @@ namespace OpenGl.Transformations.Window
     {
         private List<int> _cells = new List<int>();
         private List<GameObject> _gameObjects = new List<GameObject>();
-        private int _quadre = -1;
-        private Shader _transformShader;
-        private Shader _normalizeShader;
-        private Texture _texture;
         private Engine _engine;
+        private Logger _logger;
 
         public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default)
         {
             CenterWindow(new Vector2i(500, 500));
             _engine = new Engine();
+            _logger = new Logger();
             Context.SwapInterval = 2;
         }
 
-
         protected override void OnLoad()
         {
-            #region Cells
-
-            //var vertices = new float[]
-            //{
-            //    // position         texture
-            //    -0.3f, -0.3f, 0.0f, 0.0f, 0.0f,
-            //    -0.3f, 0.3f, 0.0f,  0.0f, 1.0f,
-            //    0.3f, 0.3f, 0.0f,   1.0f, 1.0f,
-            //    0.3f, -0.3f, 0.0f,   1.0f, 0.0f
-            //};
-            //var indices = new uint[]
-            //{
-            //    0, 1, 2,
-            //    0, 3, 2
-            //};
-            //_transformShader = new Shader("vertex.glsl", "fragment.glsl", "Transform").Create();
-            //_normalizeShader = new Shader("vertex.glsl", "fragment.glsl", "Normalize").Create();
-            //_texture = new Texture("Linus.jpg").Create();
-            //_quadre = _engine.CreateTextured(vertices, indices);
-
-            //GenerateCells();
-
-            #endregion
-
-            //var vertices = new float[]
-            //{
-            //     position           color
-            //    -0.2f, -0.2f, 0.0f,    1.0f, 0.0f, 0.0f,
-            //    -0.2f,  0.2f, 0.0f,    0.0f, 1.0f, 0.0f,
-            //    0.2f, 0.2f, 0.0f,      0.0f, 0.0f, 1.0f,
-            //    0.2f, -0.2f, 0.0f,     0.0f, 1.0f, 0.0f
-            //};
             var vertices = new float[]
             {
-                // position          texture
-                -0.2f, -0.2f, 0.0f,  0.0f, 0.0f,
-                -0.2f,  0.2f, 0.0f,  0.0f, 1.0f,
-                0.2f, 0.2f, 0.0f,    1.0f, 1.0f,
-                0.2f, -0.2f, 0.0f,   1.0f, 0.0f
+                -0.2f, -0.2f, 0.0f,
+                -0.2f,  0.2f, 0.0f,
+                0.2f, 0.2f, 0.0f,
+                0.2f, -0.2f, 0.0f
             };
             //var vertices = new float[]
             //{
-            //    -0.2f, -0.2f, 0.0f,
-            //    -0.2f,  0.2f, 0.0f,
-            //    0.2f, 0.2f, 0.0f,
-            //    0.2f, -0.2f, 0.0f
+            //    // position          texture
+            //    -0.2f, -0.2f, 0.0f,  0.0f, 0.0f,
+            //    -0.2f,  0.2f, 0.0f,  0.0f, 1.0f,
+            //    0.2f, 0.2f, 0.0f,    1.0f, 1.0f,
+            //    0.2f, -0.2f, 0.0f,   1.0f, 0.0f
             //};
             var indices = new uint[]
             {
@@ -89,51 +56,51 @@ namespace OpenGl.Transformations.Window
                                                       .SetShaderName("texture88");
             var gameObj = new GameObject().Create(vertices, indices)
                                           .Use(texturedShader)
-                                          .Add(textureSecond)
-                                          .Add(texture);
+                                          .SetName("Testing_game_object");
             _gameObjects.Add(gameObj);
 
             base.OnLoad();
         }
 
-        private float _angleZ = 10f;
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
-            GL.ClearColor(new Color4(53, 95, 115, 0.8f));
+            GL.ClearColor(new Color4(53, 95, 115, 1));
 
             foreach (var gameObject in _gameObjects)
             {
                 gameObject.Draw();
             }
 
-            #region Cells
-
-            //for (int i = 0; i < _cells.Count; i++)
-            //{
-            //    _normalizeShader.Use();
-            //    GL.BindVertexArray(_cells[i]);
-            //    GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
-
-            //}
-            #endregion
-
-            #region Че-то с текстурами
-            //_texture.Use();
-            //_transformShader.Use();
-            //var location = GL.GetUniformLocation(_transformShader.Id, "transform");
-
-            //var rotate = Matrix4.CreateRotationY(MathHelper.DegreesToRadians(_angleZ -= 5f));
-            //if (location == -1) throw new InvalidOperationException("Не удалось обнаружить позицию uniform в шейдере");
-            //GL.UniformMatrix4(location, true, ref rotate);
-
-            //GL.BindVertexArray(_quadre);
-            //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
-            #endregion
-
             SwapBuffers();
             base.OnRenderFrame(args);
+        }
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseDown(e);
+            int width = 1;
+            int height = 1;
+            unsafe {
+                GLFW.GetWindowSize(WindowPtr, out width, out height);
+            }
+            float mouseX = (float)(-1.0 + 2.0 * MousePosition.X / width);
+            float mouseY = (float)(1.0 - 2.0 * MousePosition.Y / height);
+            _logger.Log($"Mouse Down → ({mouseX}; {mouseY})");
+
+            var rnd = new Random();
+            foreach (var obj in _gameObjects)
+            {
+                if (obj.IsSelected(mouseX, mouseY))
+                {
+                    var r = (float)rnd.NextDouble();
+                    var g = (float)rnd.NextDouble();
+                    var b = (float)rnd.NextDouble();
+                    obj.ChangeShaderColor(new Color4(r, g, b, 1f), "UniColor");
+                    _logger.Log(obj.Name + " selected");
+                }
+            }
         }
 
         protected override void OnResize(ResizeEventArgs e)

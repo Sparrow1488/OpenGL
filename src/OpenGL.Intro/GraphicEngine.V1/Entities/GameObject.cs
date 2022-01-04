@@ -1,4 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ namespace GraphicEngine.V1.Entities
     public class GameObject
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public float[] Vertices { get; set; }
         public uint[] Indices { get; set; }
         public bool Colored { get; set; }
@@ -22,6 +24,7 @@ namespace GraphicEngine.V1.Entities
             _engine = new Engine();
             Indices = new uint[0];
             Vertices = new float[0];
+            Name = $"game_object";
         }
 
         public GameObject Create(float[] vertices, uint[] indices)
@@ -40,6 +43,14 @@ namespace GraphicEngine.V1.Entities
             return this;
         }
 
+        public GameObject SetName(string objectName)
+        {
+            if (objectName is null)
+                throw new ArgumentNullException($"{nameof(objectName)} was null");
+            Name = objectName;
+            return this;
+        }
+
         public GameObject Use(Shader shader)
         {
             Shader = shader;
@@ -54,38 +65,71 @@ namespace GraphicEngine.V1.Entities
             return this;
         }
 
+        public GameObject ChangeShaderColor(Color4 color, string uniformName)
+        {
+            Shader.Use();
+            var uniformLocation = GL.GetUniformLocation(Shader.Id, uniformName);
+            if (uniformLocation == -1)
+                Console.WriteLine("Не удалось найти атрибут uniform с названием " + uniformName);
+            GL.Uniform4(uniformLocation, color);
+            return this;
+        }
+
         public virtual void Draw()
         {
             GL.BindVertexArray(Id);
-            if (!(Shader is null))
-            {
+            if (!(Shader is null)) {
                 Shader.Use();
             }
 
-            if (!(Textures is null) || Textures.Count > 0)
-            {
-                EnableTextures();
-
-                GL.EnableVertexAttribArray(0);
-                GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
-
-                GL.EnableVertexAttribArray(1);
-                GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+            if (!(Textures is null) && Textures.Count > 0) {
+                OnTexturesDraw();
             }
-            else if (Colored)
-            {
-                GL.EnableVertexAttribArray(0);
-                GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
+            else if (Colored) {
+                OnColoredDraw();
+            }
+            else {
+                OnSimpleDraw();
+            }
 
-                GL.EnableVertexAttribArray(1);
-                GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 3 * sizeof(float));
-            }
-            else
-            {
-                GL.EnableVertexAttribArray(0);
-                GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
-            }
             GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+        }
+
+        public bool IsSelected(float x, float y)
+        {
+            bool isSelected = false;
+            if(Vertices[0] < x && Vertices[6] > x &&
+               Vertices[1] < y && Vertices[4] > y)
+            {
+                isSelected = true;
+            }
+            return isSelected;
+        }
+
+        protected virtual void OnTexturesDraw()
+        {
+            EnableTextures();
+
+            GL.EnableVertexAttribArray(0);
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
+
+            GL.EnableVertexAttribArray(1);
+            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+        }
+
+        protected virtual void OnColoredDraw()
+        {
+            GL.EnableVertexAttribArray(0);
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
+
+            GL.EnableVertexAttribArray(1);
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 3 * sizeof(float));
+        }
+
+        protected virtual void OnSimpleDraw()
+        {
+            GL.EnableVertexAttribArray(0);
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
         }
 
         private void EnableTextures()
