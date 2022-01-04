@@ -19,5 +19,13 @@ namespace OpenGl.Transformations.Tools
             Console.WriteLine(message);
             Console.ResetColor();
         }
+
+        public void Success(string message)
+        {
+            Console.Write($"[{DateTime.Now}] ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
     }
 }
