@@ -119,6 +119,22 @@ namespace OpenGl.IntroTwo.Window
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
 
+            SwapBuffers();
+
+            //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0); // если элемент имеет указатели VAO&VBO&EBO
+            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3); // если элемент состоит из VBO&VAO
+            base.OnRenderFrame(args);
+        }
+
+        protected override void OnResize(ResizeEventArgs e)
+        {
+            GL.Viewport(0, 0, e.Width, e.Height);
+            base.OnResize(e);
+        }
+
+        private void PlayGif()
+        {
+            // не забываем, копируем кадры гифки в конечную сборку
             if (_currentFileIndex == _files.Length)
                 _currentFileIndex = 0;
             var textureName = new FileInfo(_files[_currentFileIndex]).Name;
@@ -128,25 +144,6 @@ namespace OpenGl.IntroTwo.Window
             GL.BindVertexArray(_doubleTexQuadre);
             GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
             _currentFileIndex++;
-
-
-            //_testShader.Use();
-            //GL.BindVertexArray(_quadre);
-            //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0); // если элемент имеет указатели VAO&VBO&EBO
-
-            //_dynamicShader.UseColorAnimation("uniColor");
-            //GL.BindVertexArray(_triangle);
-            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3); // если элемент состоит из VBO&VAO
-
-            SwapBuffers();
-
-            base.OnRenderFrame(args);
-        }
-
-        protected override void OnResize(ResizeEventArgs e)
-        {
-            GL.Viewport(0, 0, e.Width, e.Height);
-            base.OnResize(e);
         }
     }
 }
