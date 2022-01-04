@@ -64,8 +64,7 @@ namespace GraphicEngine.V1.Entities
 
             if (!(Textures is null) || Textures.Count > 0)
             {
-                foreach (var texture in Textures)
-                    texture.Use();
+                EnableTextures();
 
                 GL.EnableVertexAttribArray(0);
                 GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
@@ -87,6 +86,31 @@ namespace GraphicEngine.V1.Entities
                 GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
             }
             GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+        }
+
+        private void EnableTextures()
+        {
+            Shader.Use();
+            for (int i = 0; i < Textures.Count; i++)
+            {
+                var currentTexture = Textures[i];
+
+                if (Enum.TryParse<TextureUnit>($"Texture{i}", out var textureUnit))
+                {
+                    GL.ActiveTexture(textureUnit);
+                    GL.BindTexture(TextureTarget.Texture2D, currentTexture.Id);
+
+                    var uniformLocation = GL.GetUniformLocation(Shader.Id, currentTexture.ShaderName);
+                    if(uniformLocation == -1)
+                    {
+                        Console.WriteLine("Не удалось найти аттрибут Uniform в шейдере, shaderName: {0}", currentTexture.ShaderName);
+                    }
+                    else
+                    {
+                        GL.Uniform1(uniformLocation, i);
+                    }
+                }
+            }
         }
     }
 }

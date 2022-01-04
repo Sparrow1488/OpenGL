@@ -10,7 +10,8 @@ namespace GraphicEngine.V1.Entities
     public class Texture
     {
         public int Id { get; set; } = -1;
-        private byte[] Pixels { get; set; } = new byte[0];
+        //private byte[] Pixels { get; set; } = new byte[0];
+        public string ShaderName { get; set; } = "texture0";
         private readonly string _texturePath = string.Empty;
 
         public Texture(string textureName)
@@ -27,6 +28,12 @@ namespace GraphicEngine.V1.Entities
 
             GL.Uniform1(GL.GetUniformLocation(usingShader.Id, "texture1"), 0);
             GL.Uniform1(GL.GetUniformLocation(usingShader.Id, "texture2"), 1);
+            return this;
+        }
+
+        public Texture SetShaderName(string shaderName)
+        {
+            ShaderName = shaderName;
             return this;
         }
 
@@ -48,15 +55,17 @@ namespace GraphicEngine.V1.Entities
             var image = Image.Load<Rgba32>(Path.Combine(root, _texturePath));
             image.Mutate(x => x.Flip(FlipMode.Vertical)); // для корректного отображения по вертикали
             var pixels = GetPixels(image);
+            //Pixels = pixels;
+
             GL.TexImage2D(TextureTarget.Texture2D, 0,
                 PixelInternalFormat.Rgba, image.Width,
-                    image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
+                    image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels);
             GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
             
             return this;
         }
 
-        private List<byte> GetPixels(Image<Rgba32> image)
+        private byte[] GetPixels(Image<Rgba32> image)
         {
             var pixels = new List<byte>();
             for (int y = 0; y < image.Height; y++)
@@ -71,7 +80,7 @@ namespace GraphicEngine.V1.Entities
                     pixels.Add(row[x].A);
                 }
             }
-            return pixels;
+            return pixels.ToArray();
         }
     }
 }

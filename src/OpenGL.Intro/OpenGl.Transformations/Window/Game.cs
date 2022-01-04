@@ -81,10 +81,15 @@ namespace OpenGl.Transformations.Window
                 0, 1, 2,
                 0, 3, 2
             };
-            var texture = new Texture("Linus.jpg").Create();
+
             var texturedShader = new Shader("vertex1.glsl", "fragment1.glsl", "Textured").Create();
+            var texture = new Texture("awesomeface.png").Create()
+                                               .SetShaderName("texture14");
+            var textureSecond = new Texture("box.jpg").Create()
+                                                      .SetShaderName("texture88");
             var gameObj = new GameObject().Create(vertices, indices)
                                           .Use(texturedShader)
+                                          .Add(textureSecond)
                                           .Add(texture);
             _gameObjects.Add(gameObj);
 
@@ -96,9 +101,8 @@ namespace OpenGl.Transformations.Window
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
-            GL.ClearColor(new Color4(230, 230, 250, 1));
+            GL.ClearColor(new Color4(53, 95, 115, 0.8f));
 
-            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
             foreach (var gameObject in _gameObjects)
             {
                 gameObject.Draw();
@@ -111,12 +115,12 @@ namespace OpenGl.Transformations.Window
             //    _normalizeShader.Use();
             //    GL.BindVertexArray(_cells[i]);
             //    GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
-            
+
             //}
             #endregion
 
             #region Че-то с текстурами
-            // _texture.Use();
+            //_texture.Use();
             //_transformShader.Use();
             //var location = GL.GetUniformLocation(_transformShader.Id, "transform");
 

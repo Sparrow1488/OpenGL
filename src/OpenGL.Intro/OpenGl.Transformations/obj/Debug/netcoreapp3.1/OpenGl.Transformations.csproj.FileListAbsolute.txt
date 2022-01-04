@@ -81,3 +81,6 @@ C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\Op
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Shaders\Colored\vertex1.glsl
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Shaders\Textured\fragment1.glsl
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Shaders\Textured\vertex1.glsl
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Textures\Me.png
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Textures\pogoChamp.png
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Textures\awesomeface.png
