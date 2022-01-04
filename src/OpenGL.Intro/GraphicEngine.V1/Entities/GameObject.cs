@@ -16,7 +16,12 @@ namespace GraphicEngine.V1.Entities
 
         public GameObject()
         {
+            Textures = new List<Texture>();
+            Colored = false;
+
             _engine = new Engine();
+            Indices = new uint[0];
+            Vertices = new float[0];
         }
 
         public GameObject Create(float[] vertices, uint[] indices)
@@ -41,21 +46,34 @@ namespace GraphicEngine.V1.Entities
             return this;
         }
 
-        public void Add(Texture texture)
+        public GameObject Add(Texture texture)
         {
             if (texture is null)
                 throw new ArgumentNullException($"Texture {nameof(texture)} was null");
             Textures.Add(texture);
+            return this;
         }
 
         public virtual void Draw()
         {
             GL.BindVertexArray(Id);
-            if(!(Shader is null))
+            if (!(Shader is null))
             {
                 Shader.Use();
             }
-            if (Colored)
+
+            if (!(Textures is null) || Textures.Count > 0)
+            {
+                foreach (var texture in Textures)
+                    texture.Use();
+
+                GL.EnableVertexAttribArray(0);
+                GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
+
+                GL.EnableVertexAttribArray(1);
+                GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+            }
+            else if (Colored)
             {
                 GL.EnableVertexAttribArray(0);
                 GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);

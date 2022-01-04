@@ -63,19 +63,29 @@ namespace OpenGl.Transformations.Window
             //};
             var vertices = new float[]
             {
-                -0.2f, -0.2f, 0.0f,
-                -0.2f,  0.2f, 0.0f,
-                0.2f, 0.2f, 0.0f,
-                0.2f, -0.2f, 0.0f
+                // position          texture
+                -0.2f, -0.2f, 0.0f,  0.0f, 0.0f,
+                -0.2f,  0.2f, 0.0f,  0.0f, 1.0f,
+                0.2f, 0.2f, 0.0f,    1.0f, 1.0f,
+                0.2f, -0.2f, 0.0f,   1.0f, 0.0f
             };
+            //var vertices = new float[]
+            //{
+            //    -0.2f, -0.2f, 0.0f,
+            //    -0.2f,  0.2f, 0.0f,
+            //    0.2f, 0.2f, 0.0f,
+            //    0.2f, -0.2f, 0.0f
+            //};
             var indices = new uint[]
             {
                 0, 1, 2,
                 0, 3, 2
             };
-            var coloredShader = new Shader("vertex1.glsl", "fragment1.glsl", "Colored").Create();
+            var texture = new Texture("Linus.jpg").Create();
+            var texturedShader = new Shader("vertex1.glsl", "fragment1.glsl", "Textured").Create();
             var gameObj = new GameObject().Create(vertices, indices)
-                                          .Use(coloredShader);
+                                          .Use(texturedShader)
+                                          .Add(texture);
             _gameObjects.Add(gameObj);
 
             base.OnLoad();
@@ -89,7 +99,6 @@ namespace OpenGl.Transformations.Window
             GL.ClearColor(new Color4(230, 230, 250, 1));
 
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
-
             foreach (var gameObject in _gameObjects)
             {
                 gameObject.Draw();
