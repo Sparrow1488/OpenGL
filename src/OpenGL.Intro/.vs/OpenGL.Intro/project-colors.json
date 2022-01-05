@@ -20,7 +20,22 @@
       "ProjectGuid": "9866a660-be1e-4e11-924e-86c75c93a757",
       "DisplayName": "OpenGl.SapperTK",
       "ColorIndex": 3
+    },
+    "f12c9162-cd19-4e9d-b5ce-1d9cafbba7c9": {
+      "ProjectGuid": "f12c9162-cd19-4e9d-b5ce-1d9cafbba7c9",
+      "DisplayName": "GraphicEngine.V1",
+      "ColorIndex": 4
+    },
+    "81cc2ce5-2e86-4b47-b8af-2380d5fa4799": {
+      "ProjectGuid": "81cc2ce5-2e86-4b47-b8af-2380d5fa4799",
+      "DisplayName": "OpenGl.Transformations",
+      "ColorIndex": 5
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 6
 }

@@ -28,36 +28,13 @@ namespace OpenGl.Transformations.Window
 
         protected override void OnLoad()
         {
-            var vertices = new float[]
-            {
-                -0.2f, -0.2f, 0.0f,
-                -0.2f,  0.2f, 0.0f,
-                0.2f, 0.2f, 0.0f,
-                0.2f, -0.2f, 0.0f
-            };
-            //var vertices = new float[]
-            //{
-            //    // position          texture
-            //    -0.2f, -0.2f, 0.0f,  0.0f, 0.0f,
-            //    -0.2f,  0.2f, 0.0f,  0.0f, 1.0f,
-            //    0.2f, 0.2f, 0.0f,    1.0f, 1.0f,
-            //    0.2f, -0.2f, 0.0f,   1.0f, 0.0f
-            //};
-            var indices = new uint[]
-            {
-                0, 1, 2,
-                0, 3, 2
-            };
-
             var texturedShader = new Shader("vertex1.glsl", "fragment1.glsl", "Textured").Create();
-            var texture = new Texture("awesomeface.png").Create()
-                                               .SetShaderName("texture14");
-            var textureSecond = new Texture("box.jpg").Create()
-                                                      .SetShaderName("texture88");
-            var gameObj = new GameObject().Create(vertices, indices)
-                                          .Use(texturedShader)
-                                          .SetName("Testing_game_object");
-            _gameObjects.Add(gameObj);
+            var quadre = new Quadre().Create(0.15f)
+                                     .Use(texturedShader)
+                                     .SetName("Testing_game_object");
+            OnSelectedInit(quadre);
+
+            _gameObjects.Add(quadre);
 
             base.OnLoad();
         }
@@ -89,15 +66,10 @@ namespace OpenGl.Transformations.Window
             float mouseY = (float)(1.0 - 2.0 * MousePosition.Y / height);
             _logger.Log($"Mouse Down → ({mouseX}; {mouseY})");
 
-            var rnd = new Random();
             foreach (var obj in _gameObjects)
             {
                 if (obj.IsSelected(mouseX, mouseY))
                 {
-                    var r = (float)rnd.NextDouble();
-                    var g = (float)rnd.NextDouble();
-                    var b = (float)rnd.NextDouble();
-                    obj.ChangeShaderColor(new Color4(r, g, b, 1f), "UniColor");
                     _logger.Log(obj.Name + " selected");
                 }
             }
@@ -107,6 +79,18 @@ namespace OpenGl.Transformations.Window
         {
             GL.Viewport(0, 0, e.Width, e.Height);
             base.OnResize(e);
+        }
+
+        private void OnSelectedInit(GameObject obj)
+        {
+            obj.OnSelected += () =>
+            {
+                var rnd = new Random();
+                var r = (float)rnd.NextDouble();
+                var g = (float)rnd.NextDouble();
+                var b = (float)rnd.NextDouble();
+                obj.ChangeShaderColor(new Color4(r, g, b, 1f), "UniColor");
+            };
         }
 
         private void GenerateCells()

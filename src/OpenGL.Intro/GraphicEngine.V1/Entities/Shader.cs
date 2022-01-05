@@ -54,5 +54,12 @@ namespace GraphicEngine.V1.Entities
                 Console.WriteLine("Не удалось найти атрибут uniform с названием " + uniformName);
             GL.Uniform4(uniformLocation, new Color4(0f, greenColor, 0f, 1f));
         }
+
+        public Shader SetMatrix4(string name, Matrix4 value)
+        {
+            Use();
+            GL.UniformMatrix4(GL.GetUniformLocation(Id, name), true, ref value);
+            return this;
+        }
     }
 }

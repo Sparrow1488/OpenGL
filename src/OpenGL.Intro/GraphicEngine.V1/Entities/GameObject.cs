@@ -15,6 +15,8 @@ namespace GraphicEngine.V1.Entities
         public Shader Shader { get; set; }
         public IList<Texture> Textures { get; set; }
         private Engine _engine;
+        public event OnSelectedHandler OnSelected;
+        public delegate void OnSelectedHandler();
 
         public GameObject()
         {
@@ -27,7 +29,7 @@ namespace GraphicEngine.V1.Entities
             Name = $"game_object";
         }
 
-        public GameObject Create(float[] vertices, uint[] indices)
+        public virtual GameObject Create(float[] vertices, uint[] indices)
         {
             Vertices = vertices;
             Indices = indices;
@@ -35,6 +37,13 @@ namespace GraphicEngine.V1.Entities
             Id = _engine.CreateWithoutBinding(vertices, indices);
 
             return this;
+        }
+
+        public virtual GameObject Create()
+        {
+            if(Vertices is null || Indices is null)
+                throw new ArgumentNullException($"{nameof(Vertices)} or {nameof(Indices)} was null");
+            return Create(Vertices, Indices);
         }
 
         public GameObject IsColored()
@@ -102,6 +111,7 @@ namespace GraphicEngine.V1.Entities
                Vertices[1] < y && Vertices[4] > y)
             {
                 isSelected = true;
+                OnSelected?.Invoke();
             }
             return isSelected;
         }
