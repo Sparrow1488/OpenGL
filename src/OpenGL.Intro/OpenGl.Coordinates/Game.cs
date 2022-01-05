@@ -23,8 +23,10 @@ internal class Game : GameWindow
     protected override void OnLoad()
     {
         _coordShader = new Shader("vertex1.glsl", "fragment1.glsl", "Coordinates").Create();
-        var quadre = new Quadre().Create(0.15f)
+        var texture = new Texture("awesomeface.png").Create();
+        var quadre = new Quadre().CreateTextured(0.25f)
                                  .Use(_coordShader)
+                                 .Add(texture)
                                  .SetName("Testing_game_object");
         OnSelectedInit(quadre);
 
@@ -41,7 +43,6 @@ internal class Game : GameWindow
 
         var model = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-55.0f));
         var view = Matrix4.CreateTranslation(0.0f, 0.0f, -3.0f);
-        //                                                                                           width  height
         Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), 500 / 500, 0.1f, 100.0f); // вид в проекции
         _coordShader.SetMatrix4("model", model)
                     .SetMatrix4("view", view)

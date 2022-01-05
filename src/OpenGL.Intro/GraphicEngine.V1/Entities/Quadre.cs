@@ -28,5 +28,23 @@ namespace GraphicEngine.V1.Entities
             base.Create();
             return this;
         }
+
+        public GameObject CreateTextured(float size)
+        {
+            Vertices = new float[]
+            {
+                -size, -size, 0.0f, 0.0f, 0.0f,
+                -size,  size, 0.0f, 0.0f, 1.0f,
+                size, size, 0.0f,   1.0f, 1.0f,
+                size, -size, 0.0f,  1.0f, 0.0f
+            };
+            Indices = new uint[]
+            {
+                0, 1, 2,
+                0, 3, 2
+            };
+            base.Create();
+            return this;
+        }
     }
 }
