@@ -40,7 +40,17 @@
       "ProjectGuid": "3348fc50-9639-4bd8-ac99-0fecc228b969",
       "DisplayName": "OpenGl.Coordinates",
       "ColorIndex": 6
+    },
+    "7b852272-499b-4a43-a70f-fef91fe77d1f": {
+      "ProjectGuid": "7b852272-499b-4a43-a70f-fef91fe77d1f",
+      "DisplayName": "OpenGl.Coordinates.Core",
+      "ColorIndex": 7
+    },
+    "993b00b5-a22c-4563-aa09-ec815e882a68": {
+      "ProjectGuid": "993b00b5-a22c-4563-aa09-ec815e882a68",
+      "DisplayName": "OpenGl.MousePicking",
+      "ColorIndex": 8
     }
   },
-  "NextColorIndex": 7
+  "NextColorIndex": 9
 }

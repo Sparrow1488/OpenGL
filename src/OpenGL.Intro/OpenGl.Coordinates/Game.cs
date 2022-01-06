@@ -1,11 +1,4 @@
-﻿using GraphicEngine.V1;
-using GraphicEngine.V1.Entities;
-using OpenGl.Coordinates.Tools;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenGl.Coordinates.Tools;
 
 internal class Game : GameWindow
 {

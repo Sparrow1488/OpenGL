@@ -61,5 +61,12 @@ namespace GraphicEngine.V1.Entities
             GL.UniformMatrix4(GL.GetUniformLocation(Id, name), true, ref value);
             return this;
         }
+
+        public Shader SetVector4(string name, Color4 color)
+        {
+            Use();
+            GL.Uniform4(GL.GetUniformLocation(Id, name), color);
+            return this;
+        }
     }
 }

@@ -8,11 +8,13 @@ namespace GraphicEngine.V1.Entities
     public class GameObject
     {
         public int Id { get; set; }
+        public Color4 UniColor { get; set; }
         public string Name { get; set; }
         public float[] Vertices { get; set; }
         public uint[] Indices { get; set; }
         public bool Colored { get; set; }
         public Shader Shader { get; set; }
+        protected byte[] _colorId = new byte[3];
         public IList<Texture> Textures { get; set; }
         private Engine _engine;
         public event OnSelectedHandler OnSelected;
@@ -35,6 +37,7 @@ namespace GraphicEngine.V1.Entities
             Indices = indices;
 
             Id = _engine.CreateWithoutBinding(vertices, indices);
+            UniColor = new Color4((byte)(Id + 100), (byte)(Id + 50), (byte)(Id + 50), 1);
 
             return this;
         }
@@ -114,6 +117,21 @@ namespace GraphicEngine.V1.Entities
                 OnSelected?.Invoke();
             }
             return isSelected;
+        }
+
+        public bool IsSelected_Color(int xPixel, int yPixel)
+        {
+            var result = false;
+            var shader = new Shader("vertex1.glsl", "fragment1.glsl", "Pick_Colored").Create();
+            shader.SetVector4("ColorId", new Color4((byte)Id, (byte)Id, (byte)Id, 1)).Use();
+            Draw();
+            var pixels = new byte[3];
+            GL.ReadPixels(xPixel, yPixel, 1, 1, PixelFormat.Rgb, PixelType.Byte, pixels);
+            if(pixels[0] == Id && pixels[1] == Id && pixels[2] == Id)
+            {
+                result = true;
+            }
+            return result;
         }
 
         protected virtual void OnTexturesDraw()
