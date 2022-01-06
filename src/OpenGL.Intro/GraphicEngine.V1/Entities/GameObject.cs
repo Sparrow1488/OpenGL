@@ -7,18 +7,23 @@ namespace GraphicEngine.V1.Entities
 {
     public class GameObject
     {
-        public int Id { get; set; }
-        public Color4 UniColor { get; set; }
+        public int Id { get; set; } = -1;
         public string Name { get; set; }
         public float[] Vertices { get; set; }
         public uint[] Indices { get; set; }
         public bool Colored { get; set; }
         public Shader Shader { get; set; }
-        protected byte[] _colorId = new byte[3];
-        public IList<Texture> Textures { get; set; }
+        public Shader SelectableShader { get; set; }
         private Engine _engine;
+        public IList<Texture> Textures { get; set; }
+        public Color4 UniColor { get; set; }
+
         public event OnSelectedHandler OnSelected;
         public delegate void OnSelectedHandler();
+
+        private Matrix4 _model;
+        private Matrix4 _view;
+        private Matrix4 _projection;
 
         public GameObject()
         {
@@ -38,6 +43,7 @@ namespace GraphicEngine.V1.Entities
 
             Id = _engine.CreateWithoutBinding(vertices, indices);
             UniColor = new Color4((byte)(Id + 100), (byte)(Id + 50), (byte)(Id + 50), 1);
+            SelectableShader = new Shader("ver.glsl", "fra.glsl", "Selectable").Create();
 
             return this;
         }
@@ -60,6 +66,20 @@ namespace GraphicEngine.V1.Entities
             if (objectName is null)
                 throw new ArgumentNullException($"{nameof(objectName)} was null");
             Name = objectName;
+            return this;
+        }
+
+        public GameObject SetMatrixes(Matrix4 model, Matrix4 view, Matrix4 projection)
+        {
+            _model = model;
+            _view = view;
+            _projection = projection;
+            Shader?.SetMatrix4("model", model)?
+                   .SetMatrix4("view", view)?
+                   .SetMatrix4("projection", projection);
+            SelectableShader?.SetMatrix4("model", model)?
+                             .SetMatrix4("view", view)?
+                             .SetMatrix4("projection", projection);
             return this;
         }
 
@@ -103,35 +123,19 @@ namespace GraphicEngine.V1.Entities
             else {
                 OnSimpleDraw();
             }
-
-            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
+            OnDraw();
         }
 
-        public bool IsSelected(float x, float y)
+        public virtual void DrawSelectable()
         {
-            bool isSelected = false;
-            if(Vertices[0] < x && Vertices[6] > x &&
-               Vertices[1] < y && Vertices[4] > y)
+            GL.BindVertexArray(Id);
+            if (!(SelectableShader is null))
             {
-                isSelected = true;
-                OnSelected?.Invoke();
+                SelectableShader.SetVector4("UniColor", new Color4((byte)(Id + 100), 50, 50, 1));
+                SelectableShader.Use();
             }
-            return isSelected;
-        }
-
-        public bool IsSelected_Color(int xPixel, int yPixel)
-        {
-            var result = false;
-            var shader = new Shader("vertex1.glsl", "fragment1.glsl", "Pick_Colored").Create();
-            shader.SetVector4("ColorId", new Color4((byte)Id, (byte)Id, (byte)Id, 1)).Use();
-            Draw();
-            var pixels = new byte[3];
-            GL.ReadPixels(xPixel, yPixel, 1, 1, PixelFormat.Rgb, PixelType.Byte, pixels);
-            if(pixels[0] == Id && pixels[1] == Id && pixels[2] == Id)
-            {
-                result = true;
-            }
-            return result;
+            OnSimpleDraw();
+            OnDraw();
         }
 
         protected virtual void OnTexturesDraw()
@@ -158,6 +162,11 @@ namespace GraphicEngine.V1.Entities
         {
             GL.EnableVertexAttribArray(0);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+        }
+
+        protected virtual void OnDraw()
+        {
+            GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
         }
 
         private void EnableTextures()

@@ -35,5 +35,7 @@ C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\Op
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl\obj\Debug\netcoreapp3.1\OpenGl.MousePicking.dll
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl\obj\Debug\netcoreapp3.1\OpenGl.MousePicking.pdb
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl\obj\Debug\netcoreapp3.1\OpenGl.MousePicking.genruntimeconfig.cache
-C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl\bin\Debug\netcoreapp3.1\Shaders\Coordinates\fra.glsl
-C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl\bin\Debug\netcoreapp3.1\Shaders\Coordinates\ver.glsl
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl\bin\Debug\netcoreapp3.1\Shaders\Selectable\fra.glsl
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl\bin\Debug\netcoreapp3.1\Shaders\Selectable\ver.glsl
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl\bin\Debug\netcoreapp3.1\Shaders\Textured\fra.glsl
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl\bin\Debug\netcoreapp3.1\Shaders\Textured\ver.glsl
