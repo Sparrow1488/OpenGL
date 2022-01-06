@@ -46,3 +46,6 @@ C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.
 C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates.Core\obj\Debug\netcoreapp3.1\OpenGl.Coordinates.Core.dll
 C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates.Core\obj\Debug\netcoreapp3.1\OpenGl.Coordinates.Core.pdb
 C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates.Core\obj\Debug\netcoreapp3.1\OpenGl.Coordinates.Core.genruntimeconfig.cache
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates.Core\bin\Debug\netcoreapp3.1\Shaders\Pick_Colored\fragment1.glsl
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates.Core\bin\Debug\netcoreapp3.1\Shaders\Pick_Colored\vertex1.glsl
+C:\Users\Александр\Desktop\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates.Core\obj\Debug\netcoreapp3.1\OpenGl.Coordinates.Core.csproj.CopyComplete
