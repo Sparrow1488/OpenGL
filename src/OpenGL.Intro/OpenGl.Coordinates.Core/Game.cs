@@ -39,8 +39,8 @@ namespace OpenGl.Coordinates.Core
                                         .SetName("Testing_game_quadre");
             var cube = new Cube().Create()
                                  .Use(_coordShader)
-                                 .Add(texture)
-                                 .Add(textureBox)
+                                 //.Add(texture)
+                                 //.Add(textureBox)
                                  .SetName("Testing_game_qube");
             OnSelectedInit(quadre);
 
@@ -67,6 +67,7 @@ namespace OpenGl.Coordinates.Core
             GL.ClearColor(new Color4(53, 95, 115, 1));
             GL.Enable(EnableCap.DepthTest);
 
+            GL.Color3(255, 0, 0);
             for (int i = 0; i < _cubePositions.Count; i++)
             {
                 double time;
@@ -85,11 +86,6 @@ namespace OpenGl.Coordinates.Core
                 _gameObjects[0].Draw();
             }
 
-            //foreach (var gameObject in _gameObjects)
-            //{
-            //    gameObject.Draw();
-            //}
-
             SwapBuffers();
             base.OnRenderFrame(args);
         }
@@ -105,13 +101,14 @@ namespace OpenGl.Coordinates.Core
             }
             float mouseX = (float)(-1.0 + 2.0 * MousePosition.X / width);
             float mouseY = (float)(1.0 - 2.0 * MousePosition.Y / height);
+            //_logger.Log($"R {pixels[0]}; G {pixels[1]}; B {pixels[2]}");
             _logger.Log($"Mouse Down → ({mouseX}; {mouseY})");
 
             foreach (var obj in _gameObjects)
             {
                 if (obj.IsSelected(mouseX, mouseY))
                 {
-                    _logger.Success(obj.Name + " selected");
+                    _logger.Success(obj.Name + " selected - coord based");
                 }
             }
         }
