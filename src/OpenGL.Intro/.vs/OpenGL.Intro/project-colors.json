@@ -35,7 +35,12 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Miscellaneous Files",
       "ColorIndex": -1
+    },
+    "3348fc50-9639-4bd8-ac99-0fecc228b969": {
+      "ProjectGuid": "3348fc50-9639-4bd8-ac99-0fecc228b969",
+      "DisplayName": "OpenGl.Coordinates",
+      "ColorIndex": 6
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 7
 }
