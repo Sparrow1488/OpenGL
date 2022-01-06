@@ -18,7 +18,7 @@ namespace OpenGl.MousePicking
 
         public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default)
         {
-            Context.SwapInterval = 2;
+            Context.SwapInterval = 1;
             CenterWindow(new Vector2i(650));
         }
 
@@ -35,15 +35,15 @@ namespace OpenGl.MousePicking
             _shader = new Shader("ver.glsl", "fra.glsl", "Textured").Create();
             var cube = new Cube().Create()
                                    .SetName("Selectable_cube_1")
-                                     .Use(_shader)
+                                     .Use(_shader.Clone())
                                        .Add(texture);
             var cube1 = new Cube().Create()
                                    .SetName("Selectable_cube_2")
-                                     .Use(_shader)
+                                     .Use(_shader.Clone())
                                        .Add(texture);
             var cube2 = new Cube().Create()
                                    .SetName("Selectable_cube_3")
-                                     .Use(_shader)
+                                     .Use(_shader.Clone())
                                        .Add(texture);
             _gameObjects.Add(cube);
             _gameObjects.Add(cube1);
@@ -57,6 +57,14 @@ namespace OpenGl.MousePicking
             GL.LoadIdentity();
             GL.ClearColor(new Color4(38, 37, 88, 0));
             GL.Enable(EnableCap.DepthTest);
+
+            // todo: check
+            int windowWidth = 1;
+            int windowHeight = 1;
+            unsafe
+            {
+                GLFW.GetWindowPos(WindowPtr, out windowWidth, out windowHeight);
+            }
 
             if (_drawSelectable) {
                 DrawSelectedObjects();
@@ -90,6 +98,7 @@ namespace OpenGl.MousePicking
                 var selectedObject = SelectObject(mouseXi, mouseYi);
                 if (selectedObject.Id != -1)
                 {
+                    selectedObject.Select();
                     _logger.Success($"[{selectedObject.Id}]-{selectedObject.Name} was selected!");
                 }
             }
@@ -124,9 +133,10 @@ namespace OpenGl.MousePicking
             GL.ReadPixels(mouseX, width - mouseY, 1, 1, PixelFormat.Rgb, PixelType.UnsignedByte, pixels);
             _logger.Log($"Color4({pixels[0]};{pixels[1]};{pixels[2]})");
             foreach (var obj in _gameObjects) {
-                if ((pixels[0] - 100) == obj.Id) {
+                if ((pixels[0] - 100) == obj.Id){
                     result = obj;
                 }
+                else obj.UnSelect();
             }
             return result;
         }

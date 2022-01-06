@@ -17,9 +17,12 @@ namespace GraphicEngine.V1.Entities
         private Engine _engine;
         public IList<Texture> Textures { get; set; }
         public Color4 UniColor { get; set; }
+        public Color4 SelectColor { get; set; } = new Color4(5, 150, 5, 1);
 
         public event OnSelectedHandler OnSelected;
         public delegate void OnSelectedHandler();
+        public event OnUnSelectedHandler OnUnSelected;
+        public delegate void OnUnSelectedHandler();
 
         private Matrix4 _model;
         private Matrix4 _view;
@@ -95,6 +98,18 @@ namespace GraphicEngine.V1.Entities
                 throw new ArgumentNullException($"Texture {nameof(texture)} was null");
             Textures.Add(texture);
             return this;
+        }
+
+        public void Select()
+        {
+            Shader.SetVector4("SelectColor", SelectColor);
+            OnSelected?.Invoke();
+        }
+
+        public void UnSelect()
+        {
+            Shader.SetVector4("SelectColor", new Color4(0, 0, 0, 0));
+            OnUnSelected?.Invoke();
         }
 
         public GameObject ChangeShaderColor(Color4 color, string uniformName)

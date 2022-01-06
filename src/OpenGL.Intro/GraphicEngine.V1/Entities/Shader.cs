@@ -1,19 +1,29 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using System;
 using System.IO;
+using System;
+using GraphicEngine.V1.Intefaces;
 
 namespace GraphicEngine.V1.Entities
 {
-    public class Shader
+    public class Shader : IClonable<Shader>
     {
         public int Id { get; set; } = -1;
         private readonly string _vertexShader = string.Empty;
         private readonly string _fragmentShader = string.Empty;
 
+        private readonly string _vertexShaderName = string.Empty;
+        private readonly string _fragmentShaderName = string.Empty;
+        private readonly string _directory = string.Empty;
+        private bool _wasCreated = false;
+
         public Shader(string vertexShaderName, string fragmentShaderName, string directory)
         {
+            _vertexShaderName = vertexShaderName;
+            _fragmentShaderName = fragmentShaderName;
+            _directory = directory;
+
             string root = "./Shaders";
             _vertexShader = File.ReadAllText(Path.Combine(root, directory, vertexShaderName));
             _fragmentShader = File.ReadAllText(Path.Combine(root, directory, fragmentShaderName));
@@ -36,6 +46,7 @@ namespace GraphicEngine.V1.Entities
             GL.DeleteShader(fShader);
             GL.LinkProgram(Id);
 
+            _wasCreated = true;
             return this;
         }
 
@@ -67,6 +78,12 @@ namespace GraphicEngine.V1.Entities
             Use();
             GL.Uniform4(GL.GetUniformLocation(Id, name), color);
             return this;
+        }
+
+        public Shader Clone()
+        {
+            var clone = new Shader(_vertexShaderName, _fragmentShaderName, _directory);
+            return _wasCreated == true ? clone.Create() : clone;
         }
     }
 }
