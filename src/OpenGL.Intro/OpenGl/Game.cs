@@ -58,14 +58,6 @@ namespace OpenGl.MousePicking
             GL.ClearColor(new Color4(38, 37, 88, 0));
             GL.Enable(EnableCap.DepthTest);
 
-            // todo: check
-            int windowWidth = 1;
-            int windowHeight = 1;
-            unsafe
-            {
-                GLFW.GetWindowPos(WindowPtr, out windowWidth, out windowHeight);
-            }
-
             if (_drawSelectable) {
                 DrawSelectedObjects();
             } 

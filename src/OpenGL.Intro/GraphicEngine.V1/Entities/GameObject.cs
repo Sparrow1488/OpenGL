@@ -114,11 +114,7 @@ namespace GraphicEngine.V1.Entities
 
         public GameObject ChangeShaderColor(Color4 color, string uniformName)
         {
-            Shader.Use();
-            var uniformLocation = GL.GetUniformLocation(Shader.Id, uniformName);
-            if (uniformLocation == -1)
-                Console.WriteLine("Не удалось найти атрибут uniform с названием " + uniformName);
-            GL.Uniform4(uniformLocation, color);
+            Shader.SetVector4(uniformName, color);
             return this;
         }
 
@@ -186,6 +182,12 @@ namespace GraphicEngine.V1.Entities
 
         private void EnableTextures()
         {
+            if(Shader == null)
+            {
+                Console.WriteLine("Шейдеры не установлены");
+                return;
+            }
+
             Shader.Use();
             for (int i = 0; i < Textures.Count; i++)
             {

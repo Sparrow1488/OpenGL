@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenGl.Coordinates", "OpenG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenGl.Coordinates.Core", "OpenGl.Coordinates.Core\OpenGl.Coordinates.Core.csproj", "{7B852272-499B-4A43-A70F-FEF91FE77D1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenGl.MousePicking", "OpenGl\OpenGl.MousePicking.csproj", "{993B00B5-A22C-4563-AA09-EC815E882A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenGl.MousePicking", "OpenGl\OpenGl.MousePicking.csproj", "{993B00B5-A22C-4563-AA09-EC815E882A68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenGl.SapperGame", "OpenGl.SapperGame\OpenGl.SapperGame.csproj", "{6186C3DD-DADF-4617-9AB2-DE629390C1C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{993B00B5-A22C-4563-AA09-EC815E882A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{993B00B5-A22C-4563-AA09-EC815E882A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{993B00B5-A22C-4563-AA09-EC815E882A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6186C3DD-DADF-4617-9AB2-DE629390C1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6186C3DD-DADF-4617-9AB2-DE629390C1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6186C3DD-DADF-4617-9AB2-DE629390C1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6186C3DD-DADF-4617-9AB2-DE629390C1C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
