@@ -5,33 +5,45 @@ namespace IntroTo.GameEngine;
 
 public class Shader
 {
-    private readonly string _vertexPath;
-    private readonly string _fragmentPath;
-
     public Shader(
         string vertexPath, 
-        string fragmentPath,
-        int handle)
+        string fragmentPath)
     {
-        _vertexPath = vertexPath;
-        _fragmentPath = fragmentPath;
-        Handle = handle;
+        VertexShader = Load(vertexPath, ShaderType.VertexShader);
+        FragmentShader = Load(fragmentPath, ShaderType.FragmentShader);
+
+        CompileShader(VertexShader);
+        CompileShader(FragmentShader);
+
+        Handle = GL.CreateProgram();
+        AttachToProgram(VertexShader, Handle);
+        AttachToProgram(FragmentShader, Handle);
+
+        DeleteShaderFromProgram(VertexShader, Handle);
+        DeleteShaderFromProgram(FragmentShader, Handle);
     }
 
+    /// <summary>
+    ///     Shader Program
+    /// </summary>
     public int Handle { get; }
     public int VertexShader { get; private set; }
     public int FragmentShader { get; private set; }
 
-    public void Load()
+    /// <summary>
+    ///     Load and generate shader using OpenGL
+    /// </summary>
+    /// <returns>Shader</returns>
+    private int Load(string shaderPath, ShaderType shaderType)
     {
-        var vertexShaderSource = File.ReadAllText(_vertexPath);
-        var fragmentShaderSource = File.ReadAllText(_fragmentPath);
+        if (!File.Exists(shaderPath))
+        {
+            throw new ShaderNotFoundException($"Shader at \"{shaderPath}\" not found");
+        }
 
-        VertexShader = InitShader(vertexShaderSource, ShaderType.VertexShader);
-        FragmentShader = InitShader(fragmentShaderSource, ShaderType.FragmentShader);
-
-        CompileShader(VertexShader);
-        CompileShader(FragmentShader);
+        var shaderSource = File.ReadAllText(shaderPath);
+        var shader = InitShader(shaderSource, shaderType);
+        return shader;
     }
 
     private static int InitShader(string shaderSource, ShaderType shaderType)
@@ -45,11 +57,34 @@ public class Shader
     {
         GL.CompileShader(shader);
         GL.GetShader(shader, ShaderParameter.CompileStatus, out int success);
-        Console.WriteLine("Compile shader status -> " + success);
+        Console.WriteLine("Compile shader status -> " + success); // TODO: REMOVE
         if (success is 0)
         {
             var errorLogs = GL.GetShaderInfoLog(shader);
             throw new ShaderCompileException(errorLogs);
         }
     }
+
+    private void AttachToProgram(int shader, int program)
+    {
+        GL.AttachShader(program, shader);
+
+        GL.LinkProgram(program);
+
+        GL.GetProgram(program, GetProgramParameterName.LinkStatus, out int success);
+        Console.WriteLine("Link program status -> " + success); // TODO: REMOVE
+        if (success is 0)
+        {
+            var linkLogs = GL.GetProgramInfoLog(program);
+            throw new LinkProgramException(linkLogs);
+        }
+    }
+
+    private static void DeleteShaderFromProgram(int shader, int program)
+    {
+        GL.DetachShader(program, shader);
+        GL.DeleteShader(shader);
+    }
+
+    public void Use() => GL.UseProgram(Handle);
 }
