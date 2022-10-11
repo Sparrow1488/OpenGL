@@ -25,7 +25,7 @@ public class WindowTK : GameWindow
         base.OnLoad();
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-        DrawTriangle();
+        ConfigureTriangleVertexes();
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)
@@ -35,13 +35,12 @@ public class WindowTK : GameWindow
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
         TriangleShader.Use();
-        GL.BindVertexArray(VertexArrayObject);
-        GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+        DrawTriangleVertexes();
 
         SwapBuffers();
     }
 
-    private void DrawTriangle()
+    private void ConfigureTriangleVertexes()
     {
         VertexBuffer vertexBuffer = new(new[] {
                 -0.5f,-0.5f, 0.0f,
@@ -95,6 +94,12 @@ public class WindowTK : GameWindow
             sizeOfVector * sizeof(float),
             offset: 0);
         GL.EnableVertexAttribArray(shaderLocation);
+    }
+
+    private void DrawTriangleVertexes()
+    {
+        GL.BindVertexArray(VertexArrayObject);
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
     }
 
     #region NotFamous
