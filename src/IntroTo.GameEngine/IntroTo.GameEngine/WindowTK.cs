@@ -63,7 +63,7 @@ public class WindowTK : GameWindow
         // 2. Установим указатели на вершинные буферы (для наложения шейдеров).
         //    Включаем атрибут, используя EnableVertexAttribArray, чтобы OpenGL мог интерпретировать вершинные данные
         int sizeOfVector3 = 3;
-        int shaderLocation = 0;
+        int shaderLocation = TriangleShader.GetAttribLocation("aPosition");
         SetVertexAttribPointer(shaderLocation, sizeOfVector3);
 
         // 3. Для хранения и повторного использования вершин мы используем VAO, чтобы OpenGL смог их отрисовать
@@ -82,8 +82,7 @@ public class WindowTK : GameWindow
         /* Все что мы делали на протяжении миллионов страниц подводило нас к этому моменту.
          * VAO, хранящее вершинные атрибуты и требуемый VBO. Зачастую, когда у нас есть множественные объекты 
          * для отрисовки мы в начале генерируем и конфигурируем VAO и сохраняем их для последующего использования.
-         * И когда надо будет отрисовать один из наших объектов мы просто используем сохраненный VAO.
-         */
+         * И когда надо будет отрисовать один из наших объектов мы просто используем сохраненный VAO. */
     }
 
     private static void SetVertexAttribPointer(int shaderLocation, int sizeOfVector)
@@ -95,7 +94,7 @@ public class WindowTK : GameWindow
             normalized: false,
             sizeOfVector * sizeof(float),
             offset: 0);
-        GL.EnableVertexAttribArray(0);
+        GL.EnableVertexAttribArray(shaderLocation);
     }
 
     #region NotFamous

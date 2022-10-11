@@ -34,7 +34,7 @@ public class Shader
     ///     Load and generate shader using OpenGL
     /// </summary>
     /// <returns>Shader</returns>
-    private int Load(string shaderPath, ShaderType shaderType)
+    private static int Load(string shaderPath, ShaderType shaderType)
     {
         if (!File.Exists(shaderPath))
         {
@@ -65,7 +65,7 @@ public class Shader
         }
     }
 
-    private void AttachToProgram(int shader, int program)
+    private static void AttachToProgram(int shader, int program)
     {
         GL.AttachShader(program, shader);
 
@@ -87,4 +87,5 @@ public class Shader
     }
 
     public void Use() => GL.UseProgram(Handle);
+    public int GetAttribLocation(string name) => GL.GetAttribLocation(Handle, name);
 }
