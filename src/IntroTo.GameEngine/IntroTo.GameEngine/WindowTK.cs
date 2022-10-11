@@ -12,6 +12,7 @@ public class WindowTK : GameWindow
         int height,
         string title) : base(GameWindowSettings.Default, NativeWindowSettings.Default)
     {
+        Context.SwapInterval = 2; // 2-3 is normal values
         Size = (width, height); 
         Title = title;
         TriangleShader = new("./Shaders/shader.vert", "./Shaders/shader.frag");
