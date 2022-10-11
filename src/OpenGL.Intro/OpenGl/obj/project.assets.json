@@ -410,23 +410,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\aleks\\.nuget\\packages\\": {},
+    "C:\\Users\\USER\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl\\OpenGl.MousePicking.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\OpenGl\\OpenGl.MousePicking.csproj",
       "projectName": "OpenGl.MousePicking",
-      "projectPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl\\OpenGl.MousePicking.csproj",
-      "packagesPath": "C:\\Users\\aleks\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl\\obj\\",
+      "projectPath": "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\OpenGl\\OpenGl.MousePicking.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\OpenGl\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\aleks\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -441,8 +441,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\GraphicEngine.V1\\GraphicEngine.V1.csproj": {
-              "projectPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\GraphicEngine.V1\\GraphicEngine.V1.csproj"
+            "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\GraphicEngine.V1\\GraphicEngine.V1.csproj": {
+              "projectPath": "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\GraphicEngine.V1\\GraphicEngine.V1.csproj"
             }
           }
         }
@@ -474,8 +474,20 @@
         "warn": true,
         "downloadDependencies": [
           {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.10, 3.1.10]"
+          },
+          {
             "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.21, 3.1.21]"
+            "version": "[3.1.26, 3.1.26]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.1.0, 3.1.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.1.0, 3.1.0]"
           }
         ],
         "frameworkReferences": {
@@ -483,7 +495,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

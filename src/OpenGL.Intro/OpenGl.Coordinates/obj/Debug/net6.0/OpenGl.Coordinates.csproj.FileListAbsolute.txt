@@ -47,3 +47,10 @@ C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\Op
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\bin\Debug\net6.0\Textures\pogoChamp.png
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\bin\Debug\net6.0\Shaders\Coordinates\fragment1.glsl
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\bin\Debug\net6.0\Shaders\Coordinates\vertex1.glsl
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\obj\Debug\net6.0\OpenGl.Coordinates.csproj.AssemblyReference.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\obj\Debug\net6.0\OpenGl.Coordinates.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\obj\Debug\net6.0\OpenGl.Coordinates.AssemblyInfoInputs.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\obj\Debug\net6.0\OpenGl.Coordinates.AssemblyInfo.cs
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\obj\Debug\net6.0\OpenGl.Coordinates.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\obj\Debug\net6.0\OpenGl.Coordinates.dll
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Coordinates\obj\Debug\net6.0\OpenGl.Coordinates.pdb

@@ -44,3 +44,27 @@ C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGL.I
 C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.csproj.CoreCompileInputs.cache
 C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.exe
 C:\Users\Александр\Desktop\Repsitories\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.pdb
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\OpenGL.Intro.exe.config
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\OpenGL.Intro.exe
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\OpenGL.Intro.pdb
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\SharpGL.dll
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\SharpGL.SceneGraph.dll
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\SharpGL.WPF.dll
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\SharpGL.xml
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\SharpGL.SceneGraph.xml
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\bin\Debug\SharpGL.WPF.xml
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.csproj.AssemblyReference.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.csproj.SuggestedBindingRedirects.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\MainWindow.g.cs
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\App.g.cs
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro_MarkupCompile.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro_MarkupCompile.lref
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\MainWindow.baml
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.g.resources
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.Properties.Resources.resources
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.csproj.GenerateResource.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.csproj.CopyComplete
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.exe
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGL.Intro\obj\Debug\OpenGL.Intro.pdb

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj": {}
+    "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj": {
+    "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
         "projectName": "OpenGl.SapperTK",
-        "projectPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
-        "packagesPath": "C:\\Users\\aleks\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\obj\\",
+        "projectPath": "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\OpenGl.SapperTK.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USER\\Desktop\\GitHub Repos\\OpenGL\\src\\OpenGL.Intro\\OpenGl.SapperTK\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\aleks\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -65,8 +65,20 @@
           "warn": true,
           "downloadDependencies": [
             {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
               "name": "Microsoft.NETCore.App.Host.win-x86",
-              "version": "[3.1.21, 3.1.21]"
+              "version": "[3.1.26, 3.1.26]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
             }
           ],
           "frameworkReferences": {
@@ -74,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -9,6 +9,11 @@ namespace IntroTo.GameEngine;
 
 public class WindowTK : GameWindow
 {
+    private int _vertexBufferObject;
+    private int _vertexArrayObject;
+    private VertexBuffer _vertexBuffer;
+    private int _program = 0;
+
     public WindowTK(
         int width,
         int height,
@@ -25,8 +30,7 @@ public class WindowTK : GameWindow
         );
     }
 
-    private int _vertexBufferObject;
-    private VertexBuffer _vertexBuffer;
+    public Shader TriangleShader { get; private set; }
 
     protected override void OnLoad()
     {
@@ -50,12 +54,44 @@ public class WindowTK : GameWindow
             _vertexBuffer.Vertices,
             BufferUsageHint.StaticDraw); // BufferUsageHint - то, как мы хотим, чтобы видюха обрабатывала данные
 
-        CreateShaderProgram();
+        var shaderProgram = CreateShaderProgram();
+
+        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+        GL.EnableVertexAttribArray(0);
+
+        // загружаем значения вершин
+        GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject); // привязка
+        GL.BufferData(
+            BufferTarget.ArrayBuffer, 
+            _vertexBuffer.Vertices.Length * sizeof(float), 
+            _vertexBuffer.Vertices, 
+            BufferUsageHint.StaticDraw); // загрузка
+
+        // установим указатели на вершинные буферы (для наложения шейдеров)
+        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+        GL.EnableVertexAttribArray(0);
+
+        GL.UseProgram(shaderProgram);
+
+        var vertexArrayObject = GL.GenVertexArray();
+        _vertexArrayObject = vertexArrayObject;
+        GL.BindVertexArray(vertexArrayObject);
+        // 2. copy our vertices array in a buffer for OpenGL to use
+        GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
+        GL.BufferData(
+            BufferTarget.ArrayBuffer, 
+            _vertexBuffer.Vertices.Length * sizeof(float), 
+            _vertexBuffer.Vertices, 
+            BufferUsageHint.StaticDraw);
+        // 3. then set our vertex attributes pointers
+        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+        GL.EnableVertexAttribArray(0);
     }
 
-    private static void CreateShaderProgram()
+    private int CreateShaderProgram()
     {
         var program = GL.CreateProgram();
+        _program = program;
         var shader = new Shader("./Shaders/shader.vert", "./Shaders/shader.frag", program);
         shader.Load();
 
@@ -71,6 +107,14 @@ public class WindowTK : GameWindow
             var linkLogs = GL.GetProgramInfoLog(program);
             throw new LinkProgramException(linkLogs);
         }
+
+        // Так как мы загрузили и прикрепили шейдеры к программе, то надобности в них нет и мы можем открепить и удалить их
+        GL.DetachShader(program, shader.VertexShader);
+        GL.DetachShader(program, shader.FragmentShader);
+        GL.DeleteShader(shader.VertexShader);
+        GL.DeleteShader(shader.FragmentShader);
+
+        return program;
     }
 
     protected override void OnUpdateFrame(FrameEventArgs args)
@@ -89,6 +133,11 @@ public class WindowTK : GameWindow
         base.OnRenderFrame(e);
 
         GL.Clear(ClearBufferMask.ColorBufferBit);
+
+        GL.UseProgram(_program);
+        GL.BindVertexArray(_vertexArrayObject);
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+
         SwapBuffers();
     }
 

@@ -84,3 +84,10 @@ C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\Op
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Textures\Me.png
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Textures\pogoChamp.png
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\bin\Debug\netcoreapp3.1\Textures\awesomeface.png
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.csproj.AssemblyReference.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.AssemblyInfoInputs.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.AssemblyInfo.cs
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.dll
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\OpenGL.Intro\OpenGl.Transformations\obj\Debug\netcoreapp3.1\OpenGl.Transformations.pdb
