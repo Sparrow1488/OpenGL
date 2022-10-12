@@ -64,21 +64,15 @@ public class WindowTK : GameWindow
         //    Включаем атрибут, используя EnableVertexAttribArray, чтобы OpenGL мог интерпретировать вершинные данные
         int sizeOfVector3 = 3;
         int shaderLocation = TriangleShader.GetAttribLocation("aPosition");
-        SetVertexAttribPointer(shaderLocation, sizeOfVector3);
 
         // 3. Для хранения и повторного использования вершин мы используем VAO, чтобы OpenGL смог их отрисовать
         VertexArrayObject = GL.GenVertexArray();
         GL.BindVertexArray(VertexArrayObject);
-        GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
-        GL.BufferData(
-            BufferTarget.ArrayBuffer, 
-            vertexBuffer.Vertices.Length * sizeof(float), 
-            vertexBuffer.Vertices, 
-            BufferUsageHint.StaticDraw);
 
         // 4. Установим указатели на вершины
+        GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
         SetVertexAttribPointer(shaderLocation, sizeOfVector3);
-        
+
         /* Все что мы делали на протяжении миллионов страниц подводило нас к этому моменту.
          * VAO, хранящее вершинные атрибуты и требуемый VBO. Зачастую, когда у нас есть множественные объекты 
          * для отрисовки мы в начале генерируем и конфигурируем VAO и сохраняем их для последующего использования.

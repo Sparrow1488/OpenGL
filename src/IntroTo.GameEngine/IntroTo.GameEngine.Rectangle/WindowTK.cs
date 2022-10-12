@@ -15,7 +15,7 @@ public class WindowTK : GameWindow
         Context.SwapInterval = 2;
         Size = (width, height); 
         Title = title;
-        FigureShader = new("./Shaders/shader.vert", "./Shaders/shader.frag");
+        FigureShader = new("./Shaders/basic.vert", "./Shaders/basic.frag");
     }
 
     public Shader FigureShader { get; private set; }
@@ -26,6 +26,9 @@ public class WindowTK : GameWindow
     {
         base.OnLoad();
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+        var maxVertexAttributesSupported = GL.GetInteger(GetPName.MaxVertexAttribs);
+        Console.WriteLine("Maximum number of vertex attributes supported -> " + maxVertexAttributesSupported);
 
         ConfigureFigureVertexes();
     }
@@ -51,26 +54,46 @@ public class WindowTK : GameWindow
                -0.5f,  0.5f, 0.0f
         });
 
-        int vertexBufferObject = GL.GenBuffer();
-        GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
+        float[] colorData = {
+             1.0f, 0.0f, 0.0f,
+             0.0f, 1.0f, 0.0f,
+             0.0f, 0.0f, 1.0f,
+             0.2f, 0.3f, 0.4f
+        };
+
+        // Create position buffer handle:
+        int positionBufferHandle = GL.GenBuffer(); 
+        GL.BindBuffer(BufferTarget.ArrayBuffer, positionBufferHandle);
         GL.BufferData(
             BufferTarget.ArrayBuffer,
             vertexBuffer.Vertices.Length * sizeof(float),
             vertexBuffer.Vertices,
             BufferUsageHint.StaticDraw);
 
-        int sizeOfVector3 = 3;
-        int shaderLocation = FigureShader.GetAttribLocation("aPosition");
-        SetVertexAttribPointer(shaderLocation, sizeOfVector3);
+        // Create color buffer handle:
+        int colorBufferHandle = GL.GenBuffer(); 
+        GL.BindBuffer(BufferTarget.ArrayBuffer, colorBufferHandle);
+        GL.BufferData(
+            BufferTarget.ArrayBuffer,
+            colorData.Length * sizeof(float),
+            colorData,
+            BufferUsageHint.StaticDraw);
 
+        // Activate vertex attrib pointers (position and color in vertex shader)
+        int sizeOfVector3 = 3;
+        int positionAttribLocation = FigureShader.GetAttribLocation("VertexPosition");
+        int colorAttribLocation = FigureShader.GetAttribLocation("VertexColor");
+        
         VertexArrayObject = GL.GenVertexArray();
         GL.BindVertexArray(VertexArrayObject);
-        GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
-        GL.BufferData(
-            BufferTarget.ArrayBuffer, 
-            vertexBuffer.Vertices.Length * sizeof(float), 
-            vertexBuffer.Vertices, 
-            BufferUsageHint.StaticDraw);
+
+        // Закрепляем значение индекса переменной (в шейдере location) за буффером с позицией
+        GL.BindBuffer(BufferTarget.ArrayBuffer, positionBufferHandle);
+        SetVertexAttribPointer(positionAttribLocation, sizeOfVector3);
+
+        // Закрепляем значение индекса переменной (в шейдере location) за буффером с цветом
+        GL.BindBuffer(BufferTarget.ArrayBuffer, colorBufferHandle);
+        SetVertexAttribPointer(colorAttribLocation, sizeOfVector3);
 
         // -> EBO хранит указатели indices на вершины. Это позволит складывать и отрисовывать фигуры, ссылаясь на вершины
         //    без необходимости копировать данные
@@ -88,28 +111,26 @@ public class WindowTK : GameWindow
             data: indices,
             BufferUsageHint.StaticDraw);
         FigureIndicesCount = indices.Length;
-
-        SetVertexAttribPointer(shaderLocation, sizeOfVector3);
     }
 
-    private static void SetVertexAttribPointer(int shaderLocation, int sizeOfVector)
+    private static void SetVertexAttribPointer(int attribLocation, int sizeOfVector)
     {
+        GL.EnableVertexAttribArray(attribLocation); // Активируем массивы вершинных атрибутов
         GL.VertexAttribPointer(
-            shaderLocation,
+            attribLocation,
             sizeOfVector,
             VertexAttribPointerType.Float,
             normalized: false,
             sizeOfVector * sizeof(float),
             offset: 0);
-        GL.EnableVertexAttribArray(shaderLocation);
     }
 
     private void DrawFigureVertices()
     {
         GL.DrawElements(
-            BeginMode.Triangles, 
-            count: FigureIndicesCount, 
-            DrawElementsType.UnsignedInt, 
+            BeginMode.Triangles,
+            count: FigureIndicesCount,
+            DrawElementsType.UnsignedInt,
             offset: 0);
     }
 
