@@ -1,7 +1,9 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using IntroTo.GameEngine.Rectangle.Exceptions;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Drawing;
 
 namespace IntroTo.GameEngine.Rectangle;
@@ -13,7 +15,7 @@ public class WindowTK : GameWindow
         int height,
         string title) : base(GameWindowSettings.Default, NativeWindowSettings.Default)
     {
-        Context.SwapInterval = 2;
+        Context.SwapInterval = 1;
         Size = (width, height); 
         Title = title;
         FigureShader = new("./Shaders/basic.vert", "./Shaders/basic.frag");
@@ -41,6 +43,14 @@ public class WindowTK : GameWindow
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
         FigureShader.Use();
+
+        float speed = 1.2f;
+        float maxAgree = 45.0f;
+        RotateFigure(
+            FigureShader.Handle, 
+            agree: (float)MathHelper.Sin(GLFW.GetTime() * speed) * maxAgree, 
+            rotateUniformName: "RotationMatrix");
+
         DrawFigureVertices();
 
         SwapBuffers();
@@ -59,7 +69,7 @@ public class WindowTK : GameWindow
              1.0f, 0.0f, 0.0f,
              0.0f, 1.0f, 0.0f,
              0.0f, 0.0f, 1.0f,
-             0.2f, 0.3f, 0.4f
+             0.0f, 0.5f, 0.0f
         };
 
         // Create position buffer handle:
@@ -105,10 +115,6 @@ public class WindowTK : GameWindow
             1, 2, 3  // triangle two
         };
 
-        //var rotationResult = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(90.0f));
-        //var rotationMatrixAttribLocation = GL.GetUniformLocation(FigureShader.Handle, "RotationMatrix");
-        //GL.UniformMatrix4(rotationMatrixAttribLocation, true, ref rotationResult);
-
         int elementBufferObject = GL.GenBuffer();
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, elementBufferObject);
         GL.BufferData(
@@ -117,6 +123,18 @@ public class WindowTK : GameWindow
             data: indices,
             BufferUsageHint.StaticDraw);
         FigureIndicesCount = indices.Length;
+    }
+
+    private void RotateFigure(int programHandle, float agree, string rotateUniformName)
+    {
+        var rotationResult = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(agree));
+        var rotationMatrixAttribLocation = GL.GetUniformLocation(FigureShader.Handle, rotateUniformName);
+        if (rotationMatrixAttribLocation < 0)
+        {
+            throw new AttributeNotFoundException(
+                $"Uniform named {rotationMatrixAttribLocation} not found in program {programHandle}");
+        }
+        GL.UniformMatrix4(rotationMatrixAttribLocation, true, ref rotationResult);
     }
 
     private static void SetVertexAttribPointer(int attribLocation, int sizeOfVector)
