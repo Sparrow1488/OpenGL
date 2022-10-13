@@ -1,3 +1,5 @@
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\bin\Debug\net6.0\Shaders\basic.frag
+C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\bin\Debug\net6.0\Shaders\basic.vert
 C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\bin\Debug\net6.0\IntroTo.GameEngine.Rectangle.exe
 C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\bin\Debug\net6.0\Shaders\shader.frag
 C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\bin\Debug\net6.0\Shaders\shader.vert
@@ -30,5 +32,3 @@ C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEng
 C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\obj\Debug\net6.0\IntroTo.GameEngine.Rectangle.pdb
 C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\obj\Debug\net6.0\IntroTo.GameEngine.Rectangle.genruntimeconfig.cache
 C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\obj\Debug\net6.0\ref\IntroTo.GameEngine.Rectangle.dll
-C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\bin\Debug\net6.0\Shaders\basic.frag
-C:\Users\USER\Desktop\GitHub Repos\OpenGL\src\IntroTo.GameEngine\IntroTo.GameEngine.Rectangle\bin\Debug\net6.0\Shaders\basic.vert

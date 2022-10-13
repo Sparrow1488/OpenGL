@@ -1,4 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using System.Drawing;
@@ -103,6 +104,10 @@ public class WindowTK : GameWindow
             0, 1, 3, // triangle one
             1, 2, 3  // triangle two
         };
+
+        //var rotationResult = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(90.0f));
+        //var rotationMatrixAttribLocation = GL.GetUniformLocation(FigureShader.Handle, "RotationMatrix");
+        //GL.UniformMatrix4(rotationMatrixAttribLocation, true, ref rotationResult);
 
         int elementBufferObject = GL.GenBuffer();
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, elementBufferObject);
