@@ -21,6 +21,48 @@ public class Shader
 
         DeleteShaderFromProgram(VertexShader, Handle);
         DeleteShaderFromProgram(FragmentShader, Handle);
+
+        PrintActiveResources();
+    }
+
+    private void PrintActiveResources()
+    {
+        GL.GetProgramInterface(
+            program: Handle, 
+            ProgramInterface.ProgramInput, 
+            ProgramInterfaceParameter.ActiveResources,
+            out int activeAttributesCount);
+        Console.WriteLine($"In {Handle} program now activated attributes count -> " + activeAttributesCount);
+
+        for (int i = 0; i < activeAttributesCount; i++)
+        {
+            ProgramProperty[] properties =
+            {
+                ProgramProperty.NameLength,
+                ProgramProperty.Type,
+                ProgramProperty.Location
+            };
+            var results = new int[3];
+            GL.GetProgramResource(
+                Handle, 
+                ProgramInterface.ProgramInput,
+                index: i,
+                propCount: properties.Length,
+                properties,
+                results.Length,
+                out var length,
+                results);
+
+            var bufferSizeOfName = results[0];
+            GL.GetProgramResourceName(
+                Handle, 
+                ProgramInterface.ProgramInput,
+                index: i,
+                bufSize: bufferSizeOfName,
+                out int length2,
+                out var attributeName);
+            Console.WriteLine($"Attribute at index {results[2]} -> {attributeName}");
+        }
     }
 
     /// <summary>

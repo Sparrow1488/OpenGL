@@ -88,6 +88,7 @@ public class WindowTK : GameWindow
         GL.BindVertexArray(VertexArrayObject);
 
         // Закрепляем значение индекса переменной (в шейдере location) за буффером с позицией
+        // То-есть переменной, на которую указывает индекс positionAttribLocation присваиваем значение из positionBufferHandle
         GL.BindBuffer(BufferTarget.ArrayBuffer, positionBufferHandle);
         SetVertexAttribPointer(positionAttribLocation, sizeOfVector3);
 
