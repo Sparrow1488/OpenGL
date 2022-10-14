@@ -50,6 +50,9 @@ public class WindowTK : GameWindow
             FigureShader.Handle, 
             agree: (float)MathHelper.Sin(GLFW.GetTime() * speed) * maxAgree, 
             rotateUniformName: "RotationMatrix");
+        SmoothlyChangeColor(
+            FigureShader.Handle, 
+            timeUniformName: "Time");
 
         DrawFigureVertices();
 
@@ -125,16 +128,27 @@ public class WindowTK : GameWindow
         FigureIndicesCount = indices.Length;
     }
 
-    private void RotateFigure(int programHandle, float agree, string rotateUniformName)
+    private static void RotateFigure(int programHandle, float agree, string rotateUniformName)
     {
         var rotationResult = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(agree));
-        var rotationMatrixAttribLocation = GL.GetUniformLocation(FigureShader.Handle, rotateUniformName);
+        var rotationMatrixAttribLocation = GL.GetUniformLocation(programHandle, rotateUniformName);
         if (rotationMatrixAttribLocation < 0)
         {
             throw new AttributeNotFoundException(
                 $"Uniform named {rotationMatrixAttribLocation} not found in program {programHandle}");
         }
         GL.UniformMatrix4(rotationMatrixAttribLocation, true, ref rotationResult);
+    }
+
+    private static void SmoothlyChangeColor(int programHandle, string timeUniformName)
+    {
+        var timeUniformLocation = GL.GetUniformLocation(programHandle, timeUniformName);
+        var glTime = GLFW.GetTime();
+        int uniformVariableIsNotAnArray = 1;
+        GL.Uniform1(
+            timeUniformLocation, 
+            count: uniformVariableIsNotAnArray, 
+            value: ref glTime);
     }
 
     private static void SetVertexAttribPointer(int attribLocation, int sizeOfVector)
